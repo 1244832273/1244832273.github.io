@@ -1,78 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>hook原理</title>
-      <link href="/2020/07/20/react_1/"/>
-      <url>/2020/07/20/react_1/</url>
-      
-        <content type="html"><![CDATA[<h4 id="hoos使用可能产生的疑惑"><a href="#hoos使用可能产生的疑惑" class="headerlink" title="hoos使用可能产生的疑惑"></a>hoos使用可能产生的疑惑</h4><ol><li><p>为什么 useEffect 第二个参数是空数组，就相当于 ComponentDidMount ，只会执行一次？</p></li><li><p>为什么只能在函数的最外层调用 Hook，不能在循环、条件判断或者子函数中调用？</p></li><li><p>自定义的 Hook 是如何影响使用它的函数组件的？</p></li><li><p>Capture Value 特性是如何产生的？</p></li></ol><p><code>带着疑惑往下看</code></p><h4 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h4><p>最简单的 <code>useState</code> 用法是这样的：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Counter() &#123;</span><br><span class="line">  var [count, setCount] &#x3D; useState(0);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;div&gt;&#123;count&#125;&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;Button onClick&#x3D;&#123;() &#x3D;&gt; &#123;setCount(count + 1)&#125;&#125;&gt;</span><br><span class="line">        点击</span><br><span class="line">      &lt;&#x2F;Button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>基于 <code>useState</code> 的用法, 我们尝试着自己实现一个 <code>useState</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  var state &#x3D; initialValue;</span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    state &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  return [state, setState];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这时我们发现，点击 Button 的时候，count 并<code>不会变化</code>。</p><p>为什么呢？我们没有存储 state，每次渲染 Counter 组件的时候，state 都是<code>新重置</code>的。</p><p>自然我们就能想到，把 state <code>提取出来</code>，存在 useState <code>外面</code>。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var _state; &#x2F;&#x2F; 把 state 存储在外面</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  _state &#x3D; _state || initialValue; &#x2F;&#x2F; 如果没有 _state，说明是第一次执行，把 initialValue 复制给它</span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    _state &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  return [_state, setState];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>重新渲染组件的时候会读取全局对象的值，拿到的就是最新值了</code></p><h4 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h4><p>useEffect 是另外一个基础的 Hook，用来处理<code>副作用</code>，最简单的用法是这样的：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">    console.log(count);</span><br><span class="line"> &#125;, [count]);</span><br></pre></td></tr></table></figure><p>我们知道 useEffect 有几个特点：</p><ol><li><p>有两个参数 <code>callback</code> 和 <code>dependencies</code> 数组</p></li><li><p>如果 dependencies 不存在，那么 callback 每次 render 都会执行</p></li><li><p>如果 dependencies 存在，只有当它<code>发生了变化</code>， callback 才会执行</p></li></ol><p>实现一个 useEffect：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let _deps; &#x2F;&#x2F; _deps 记录 useEffect 上一次的 依赖</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useEffect(callback, depArray) &#123;</span><br><span class="line">  const hasNoDeps &#x3D; !depArray; &#x2F;&#x2F; 如果 dependencies 不存在</span><br><span class="line">  const hasChangedDeps &#x3D; _deps</span><br><span class="line">    ? !depArray.every((el, i) &#x3D;&gt; el &#x3D;&#x3D;&#x3D; _deps[i]) &#x2F;&#x2F; 两次的 dependencies 是否完全相等</span><br><span class="line">    : true;</span><br><span class="line">  &#x2F;* 如果 dependencies 不存在，或者 dependencies 有变化才执行回调函数*&#x2F;</span><br><span class="line">  if (hasNoDeps || hasChangedDeps) &#123; &#x2F;&#x2F; dependencies 不存在，或者 dependencies 有变化</span><br><span class="line">    callback();</span><br><span class="line">    _deps &#x3D; depArray;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>到这里，我们又实现了一个可以工作的 useEffect，似乎没有那么难。</p><p>此时我们应该可以解答一个问题：</p><blockquote><p>为什么第二个参数是空数组，相当于 componentDidMount ？</p></blockquote><p>因为依赖一直不变化，callback 不会二次执行。</p><h4 id="Hooks-的复用问题"><a href="#Hooks-的复用问题" class="headerlink" title="Hooks 的复用问题"></a>Hooks 的复用问题</h4><p>到现在为止，我们已经实现了可以工作的 useState 和 useEffect。</p><p>但是有一个很大的问题：它俩都只能<code>使用一次</code>，因为只有一个 _state 和 一个 _deps。</p><p>比如</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const [count, setCount] &#x3D; useState(0);</span><br><span class="line">const [username, setUsername] &#x3D; useState(&#39;fan&#39;);</span><br></pre></td></tr></table></figure><p>count 和 username 永远是相等的，因为他们共用了一个 _state，并没有地方能分别存储两个值。</p><p>我们需要可以<code>存储多个</code> _state 和 _deps。</p><p>如 《React Hooks: not magic, just arrays》所写，我们可以使用数组，来解决 Hooks 的复用问题。</p><p>代码关键在于：</p><p>初次渲染的时候，按照 useState，useEffect 的<code>顺序</code>，把 state，deps 等<code>按顺序塞到 memoizedState 数组</code>中。</p><p>更新的时候，<code>按照顺序</code>，从 memoizedState 中把上次记录的值拿出来。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">let memoizedState &#x3D; []; &#x2F;&#x2F; hooks 存放在这个数组</span><br><span class="line">let cursor &#x3D; 0; &#x2F;&#x2F; 当前 memoizedState 下标</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  memoizedState[cursor] &#x3D; memoizedState[cursor] || initialValue;</span><br><span class="line">  </span><br><span class="line">  const currentCursor &#x3D; cursor; &#x2F;&#x2F; 获取当前存储memoizedState下标</span><br><span class="line">  </span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    memoizedState[currentCursor] &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  return [memoizedState[cursor++], setState]; &#x2F;&#x2F; ++自加语法返回当前下标后 才执行加一</span><br><span class="line">  &#x2F;&#x2F; 返回当前 state，并把 cursor 加 1</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useEffect(callback, depArray) &#123;</span><br><span class="line">  const hasNoDeps &#x3D; !depArray; &#x2F;&#x2F; 没有依赖（第二个参数）存在</span><br><span class="line">  </span><br><span class="line">  const deps &#x3D; memoizedState[cursor]; &#x2F;&#x2F; 获取当前下标的memoizedState存储的依赖</span><br><span class="line">  </span><br><span class="line">  const hasChangedDeps &#x3D; deps</span><br><span class="line">    ? !depArray.every((el, i) &#x3D;&gt; el &#x3D;&#x3D;&#x3D; deps[i]) &#x2F;&#x2F; every全部相等才会返回true</span><br><span class="line">    : true;</span><br><span class="line">  </span><br><span class="line">  if (hasNoDeps || hasChangedDeps) &#123;</span><br><span class="line">    callback();</span><br><span class="line">    memoizedState[cursor] &#x3D; depArray;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  cursor++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="图片解读"><a href="#图片解读" class="headerlink" title="图片解读"></a>图片解读</h4><p>如果还是不清楚，可以看下面的图。</p><p>我们用图来描述 memoizedState 及 cursor 变化的过程。</p><h6 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlFUFBralhReVVGVUU3aGY2VkJqZGtKTHJlNlF5WGpKT3dIZFp3V0VZUHVBQ2p4YzRncmZmYVEvNjQw?x-oss-process=image/format,png" alt=""></p><h6 id="2-初次渲染"><a href="#2-初次渲染" class="headerlink" title="2. 初次渲染"></a>2. 初次渲染</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlTWVhNaFFNR2tnZ25oRDdPN1BIeWJXd1F1T3VpY0wxQlZIaHFpYlpUZ0VCSnVNdVJuM3ZwSUVzdy82NDA?x-oss-process=image/format,png" alt=""></p><h6 id="3-事件触发"><a href="#3-事件触发" class="headerlink" title="3. 事件触发"></a>3. 事件触发</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlqVHNLcldYVHNlV3lKR3k0enAxNnRpY085UWJFT0wycTlSNE9RMkpTZVZlaWFpYnQyaGljaWJ6bDJFQS82NDA?x-oss-process=image/format,png" alt=""></p><h6 id="4-Re-Render"><a href="#4-Re-Render" class="headerlink" title="4. Re-Render"></a>4. Re-Render</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlsdFdpYVJZeU1ZZ25oUHEzWW0wZkw3bW9yM1p5U1g3dmRLR1RpY3Z5QWlhb1UySnZHNHdadkhLMncvNjQw?x-oss-process=image/format,png" alt=""></p><p>到这里，我们实现了一个可以任意复用的 useState 和 useEffect。</p><p><code>理解：useState存的是值 useEffect存的是依赖，setState的时候改变的是闭包缓存的那个下标的memoizedState的值， 然后下标会重置为0并且组件会重新执行走一遍。一直改变的是memoizedState，而hooks只是函数会重新执行。</code></p><p>同时，也可以解答几个问题：</p><p>Q：为什么只能在函数最外层调用 Hook？为什么不要在循环、条件判断或者子函数中调用？</p><p>A：memoizedState 数组是<code>按hook定义的顺序</code>来放置数据的，如果 hook <code>顺序变化</code>，memoizedState 并<code>不会感知到</code>。</p><p>Q：自定义的 Hook 是如何影响使用它的函数组件的？</p><p>A：共享同一个 memoizedState，共享同一个顺序。</p><p>Q：”Capture Value” 特性是如何产生的？</p><p>A：每一次 ReRender 的时候，都是重新去执行函数组件了，对于之前已经执行过的函数组件，并不会做任何操作。</p><h4 id="真正的-React-实现"><a href="#真正的-React-实现" class="headerlink" title="真正的 React 实现"></a>真正的 React 实现</h4><p>虽然我们用数组基本实现了一个可用的 Hooks，了解了 Hooks 的原理，但在 React 中，实现方式却有一些差异的。</p><p>React 中是通过类似单链表的形式来代替数组的。</p><p>源码地址：<a href="https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L336" target="_blank" rel="noopener">https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L336</a></p><p>通过 next 按顺序串联所有的 hook。</p><p><a href="https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477" target="_blank" rel="noopener">https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">type Hooks &#x3D; &#123;</span><br><span class="line">  memoizedState: any, &#x2F;&#x2F; 指向当前渲染节点 Fiber</span><br><span class="line">  baseState: any, &#x2F;&#x2F; 初始化 initialState， 已经每次 dispatch 之后 newState</span><br><span class="line">  baseUpdate: Update&lt;any&gt; | null,&#x2F;&#x2F; 当前需要更新的 Update ，每次更新完之后，会赋值上一个   update，方便 react 在渲染错误的边缘，数据回溯</span><br><span class="line">  queue: UpdateQueue&lt;any&gt; | null,&#x2F;&#x2F; UpdateQueue 通过</span><br><span class="line">  next: Hook | null, &#x2F;&#x2F; link 到下一个 hooks，通过 next 串联每一 hooks</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">type Effect &#x3D; &#123;</span><br><span class="line">  tag: HookEffectTag, &#x2F;&#x2F; effectTag 标记当前 hook 作用在 life-cycles 的哪一个阶段</span><br><span class="line">  create: () &#x3D;&gt; mixed, &#x2F;&#x2F; 初始化 callback</span><br><span class="line">  destroy: (() &#x3D;&gt; mixed) | null, &#x2F;&#x2F; 卸载 callback</span><br><span class="line">  deps: Array&lt;mixed&gt; | null,</span><br><span class="line">  next: Effect, &#x2F;&#x2F; 同上</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>memoizedState，cursor 是存在哪里的？</p><p>如何和每个函数组件一一对应的？</p><p>我们知道，react 会生成一棵组件树（或Fiber 单链表），树中每个节点对应了一个组件。</p><p>hooks 的数据就作为组件的一个信息，存储在这些节点上，伴随组件一起出生，一起死亡。</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>康奈尔笔记法</title>
+    <url>/2020/07/20/newType/</url>
+    <content><![CDATA[<h3 id="学习，思维三部曲：WHAT、HOW、WHY"><a href="#学习，思维三部曲：WHAT、HOW、WHY" class="headerlink" title="学习，思维三部曲：WHAT、HOW、WHY"></a>学习，思维三部曲：WHAT、HOW、WHY</h3><h5 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h5><p>所谓的 「WHAT」 也就是 「What is it」?——这是最简单的层次。在这个层次，你要搞清楚某个东东是「什么」样子的？有「什么」用处？有「什么」特性？有「什么」语法？</p>
+<p><code>**基本概念例如语法是什么，主要理解是什么东西！*</code>*</p>
+<h5 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h5><p>所谓的「HOW」就是「How to do」?。在这个层次，你要搞清楚某个东西，其内部是「如何」运作的？「如何」实现的？</p>
+<ul>
+<li>举例如下：<br>假如你在学习 C++ 语言，你是否搞明白函数传参数的实现机制？虚函数是如何实现？抛出异常时的栈回退是怎么回事？……</li>
+<li>假如你在学习 Java 语言，你是否搞清楚 GC 如何实现？反射是如何实现？……</li>
+<li>假如你在学习 JDBC 库，你是否清楚 JDBC Driver 的 4 种类型？不同游标类型的实现机制？事务的机制？……</li>
+</ul>
+<p>在这个阶段，你必须多想想类似这些问题。然后通过各种途径，把问题彻底搞清楚。自然而然，你的提高就会比较明显。而且如果碰到一些深层次的问题（比如性能优化），也就知道该如何去解决。</p>
+<p><code>理解是学习的这个东西如何实现的，原理是什么</code></p>
+<h5 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h5><p>前提是理解how之后才能继续考虑why</p>
+<p>所谓的「WHY」，就是搞清楚某个东西「为什么」设计成这样？「为什么」不是另外的样子？这样的设计有什么讲究?</p>
+<ul>
+<li>举例如下：<br>对于 C++ 语言：为什么 C++ 没有类似 Java 的 finally 关键字？为什么当初发明 C++ 的时候没有考虑 GC？……</li>
+<li>对于 Java 语言：为什么 Java 没有类似 C++ 的类析构函数？为什么 Java 要同时提供 String 和 StringBuffer 两个似乎冗余的类？……</li>
+<li>对于 Python 语言：为什么 Python 不提供类似 C++/Java 的访问控制机制？</li>
+</ul>
+<p><code>理解为何这样设计</code></p>
+<h3 id="康奈尔笔记法"><a href="#康奈尔笔记法" class="headerlink" title="康奈尔笔记法"></a>康奈尔笔记法</h3><p>康奈尔笔记法，又叫5R笔记法，几乎适用于一切讲授或阅读课，特别是听课笔记。很多名校学霸在分享学习经验时，都会推荐它。</p>
+<p>康奈尔笔记法的设计非常简单，只需要在普通的笔记本上画一横一竖两条线就可以了，具体实施步骤如下：</p>
+<p>把笔记本纸张<strong>按照一定比例分成三个区域</strong>，分别是<strong>笔记栏</strong>、<strong>线索栏</strong>、<strong>总结栏</strong>。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-c7b5f9c9478ab9f519ae1f515994c7c2_720w.jpg" alt=""></p>
+<p>（1）<strong>记录</strong>：在听讲或阅读过程中，在笔记栏内尽量多记论据、概念等内容。</p>
+<p>（2）<strong>简化</strong>：将这些论据、概念简明扼要地概括在线索栏。</p>
+<p>（3）<strong>背诵</strong>：把笔记栏遮住，只用线索栏中的摘要提示，回忆笔记栏内容。</p>
+<p>（4）<strong>思考</strong>：将随感、思考、体会的内容，写在下方总结栏处。</p>
+<p>（5）<strong>复习</strong>：每周花一定时间复习笔记，翻看总结栏，检查自己对知识点是否都已熟练掌握，如有未能掌握扎实的内容，再回去看笔记栏。</p>
+]]></content>
       <categories>
-          
-          <category> react#分类 </category>
-          
+        <category>学习方法#分类</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> react </tag>
-            
-            <tag> hooks </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>康奈尔笔记法</title>
-      <link href="/2020/07/20/newType/"/>
-      <url>/2020/07/20/newType/</url>
-      
-        <content type="html"><![CDATA[<h3 id="学习，思维三部曲：WHAT、HOW、WHY"><a href="#学习，思维三部曲：WHAT、HOW、WHY" class="headerlink" title="学习，思维三部曲：WHAT、HOW、WHY"></a>学习，思维三部曲：WHAT、HOW、WHY</h3><h5 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h5><p>所谓的 「WHAT」 也就是 「What is it」?——这是最简单的层次。在这个层次，你要搞清楚某个东东是「什么」样子的？有「什么」用处？有「什么」特性？有「什么」语法？</p><p><code>**基本概念例如语法是什么，主要理解是什么东西！*</code>*</p><h5 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h5><p>所谓的「HOW」就是「How to do」?。在这个层次，你要搞清楚某个东西，其内部是「如何」运作的？「如何」实现的？</p><ul><li>举例如下：<br>假如你在学习 C++ 语言，你是否搞明白函数传参数的实现机制？虚函数是如何实现？抛出异常时的栈回退是怎么回事？……</li><li>假如你在学习 Java 语言，你是否搞清楚 GC 如何实现？反射是如何实现？……</li><li>假如你在学习 JDBC 库，你是否清楚 JDBC Driver 的 4 种类型？不同游标类型的实现机制？事务的机制？……</li></ul><p>在这个阶段，你必须多想想类似这些问题。然后通过各种途径，把问题彻底搞清楚。自然而然，你的提高就会比较明显。而且如果碰到一些深层次的问题（比如性能优化），也就知道该如何去解决。</p><p><code>理解是学习的这个东西如何实现的，原理是什么</code></p><h5 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h5><p>前提是理解how之后才能继续考虑why</p><p>所谓的「WHY」，就是搞清楚某个东西「为什么」设计成这样？「为什么」不是另外的样子？这样的设计有什么讲究?</p><ul><li>举例如下：<br>对于 C++ 语言：为什么 C++ 没有类似 Java 的 finally 关键字？为什么当初发明 C++ 的时候没有考虑 GC？……</li><li>对于 Java 语言：为什么 Java 没有类似 C++ 的类析构函数？为什么 Java 要同时提供 String 和 StringBuffer 两个似乎冗余的类？……</li><li>对于 Python 语言：为什么 Python 不提供类似 C++/Java 的访问控制机制？</li></ul><p><code>理解为何这样设计</code></p><h3 id="康奈尔笔记法"><a href="#康奈尔笔记法" class="headerlink" title="康奈尔笔记法"></a>康奈尔笔记法</h3><p>康奈尔笔记法，又叫5R笔记法，几乎适用于一切讲授或阅读课，特别是听课笔记。很多名校学霸在分享学习经验时，都会推荐它。</p><p>康奈尔笔记法的设计非常简单，只需要在普通的笔记本上画一横一竖两条线就可以了，具体实施步骤如下：</p><p>把笔记本纸张<strong>按照一定比例分成三个区域</strong>，分别是<strong>笔记栏</strong>、<strong>线索栏</strong>、<strong>总结栏</strong>。</p><p><img src="https://pic3.zhimg.com/80/v2-c7b5f9c9478ab9f519ae1f515994c7c2_720w.jpg" alt=""></p><p>（1）<strong>记录</strong>：在听讲或阅读过程中，在笔记栏内尽量多记论据、概念等内容。</p><p>（2）<strong>简化</strong>：将这些论据、概念简明扼要地概括在线索栏。</p><p>（3）<strong>背诵</strong>：把笔记栏遮住，只用线索栏中的摘要提示，回忆笔记栏内容。</p><p>（4）<strong>思考</strong>：将随感、思考、体会的内容，写在下方总结栏处。</p><p>（5）<strong>复习</strong>：每周花一定时间复习笔记，翻看总结栏，检查自己对知识点是否都已熟练掌握，如有未能掌握扎实的内容，再回去看笔记栏。</p>]]></content>
-      
-      
+      <tags>
+        <tag>学习方法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>测试#文章页面上的显示名称，一般是中文</title>
+    <url>/2020/07/19/my-first-blog/</url>
+    <content><![CDATA[<p>测试内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const test &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">	console.log(&#39;你好&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="一级"><a href="#一级" class="headerlink" title="一级"></a>一级</h1><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>[TOC]</p>
+<p>![](G:\塔河大屏综合管理平台_slices\合并形状备份 <a href="mailto:2@2x.png">2@2x.png</a>)</p>
+]]></content>
       <categories>
-          
-          <category> 学习方法#分类 </category>
-          
+        <category>默认分类</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 学习方法 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>测试#文章页面上的显示名称，一般是中文</title>
-      <link href="/2020/07/19/my-first-blog/"/>
-      <url>/2020/07/19/my-first-blog/</url>
-      
-        <content type="html"><![CDATA[<p>测试内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const test &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">console.log(&#39;你好&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="一级"><a href="#一级" class="headerlink" title="一级"></a>一级</h1><table><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><p>[TOC]</p><p>![](G:\塔河大屏综合管理平台_slices\合并形状备份 <a href="mailto:2@2x.png">2@2x.png</a>)</p>]]></content>
-      
-      
+  </entry>
+  <entry>
+    <title>hook原理</title>
+    <url>/2020/07/20/react_1/</url>
+    <content><![CDATA[<h4 id="hoos使用可能产生的疑惑"><a href="#hoos使用可能产生的疑惑" class="headerlink" title="hoos使用可能产生的疑惑"></a>hoos使用可能产生的疑惑</h4><ol>
+<li><p>为什么 useEffect 第二个参数是空数组，就相当于 ComponentDidMount ，只会执行一次？</p>
+</li>
+<li><p>为什么只能在函数的最外层调用 Hook，不能在循环、条件判断或者子函数中调用？</p>
+</li>
+<li><p>自定义的 Hook 是如何影响使用它的函数组件的？</p>
+</li>
+<li><p>Capture Value 特性是如何产生的？</p>
+</li>
+</ol>
+<p><code>带着疑惑往下看</code></p>
+<h4 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h4><p>最简单的 <code>useState</code> 用法是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Counter() &#123;</span><br><span class="line">  var [count, setCount] &#x3D; useState(0);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;div&gt;&#123;count&#125;&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;Button onClick&#x3D;&#123;() &#x3D;&gt; &#123;setCount(count + 1)&#125;&#125;&gt;</span><br><span class="line">        点击</span><br><span class="line">      &lt;&#x2F;Button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基于 <code>useState</code> 的用法, 我们尝试着自己实现一个 <code>useState</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  var state &#x3D; initialValue;</span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    state &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  return [state, setState];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时我们发现，点击 Button 的时候，count 并<code>不会变化</code>。</p>
+<p>为什么呢？我们没有存储 state，每次渲染 Counter 组件的时候，state 都是<code>新重置</code>的。</p>
+<p>自然我们就能想到，把 state <code>提取出来</code>，存在 useState <code>外面</code>。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var _state; &#x2F;&#x2F; 把 state 存储在外面</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  _state &#x3D; _state || initialValue; &#x2F;&#x2F; 如果没有 _state，说明是第一次执行，把 initialValue 复制给它</span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    _state &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  return [_state, setState];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>重新渲染组件的时候会读取全局对象的值，拿到的就是最新值了</code></p>
+<h4 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h4><p>useEffect 是另外一个基础的 Hook，用来处理<code>副作用</code>，最简单的用法是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">    console.log(count);</span><br><span class="line"> &#125;, [count]);</span><br></pre></td></tr></table></figure>
+
+<p>我们知道 useEffect 有几个特点：</p>
+<ol>
+<li><p>有两个参数 <code>callback</code> 和 <code>dependencies</code> 数组</p>
+</li>
+<li><p>如果 dependencies 不存在，那么 callback 每次 render 都会执行</p>
+</li>
+<li><p>如果 dependencies 存在，只有当它<code>发生了变化</code>， callback 才会执行</p>
+</li>
+</ol>
+<p>实现一个 useEffect：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let _deps; &#x2F;&#x2F; _deps 记录 useEffect 上一次的 依赖</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useEffect(callback, depArray) &#123;</span><br><span class="line">  const hasNoDeps &#x3D; !depArray; &#x2F;&#x2F; 如果 dependencies 不存在</span><br><span class="line">  const hasChangedDeps &#x3D; _deps</span><br><span class="line">    ? !depArray.every((el, i) &#x3D;&gt; el &#x3D;&#x3D;&#x3D; _deps[i]) &#x2F;&#x2F; 两次的 dependencies 是否完全相等</span><br><span class="line">    : true;</span><br><span class="line">  &#x2F;* 如果 dependencies 不存在，或者 dependencies 有变化才执行回调函数*&#x2F;</span><br><span class="line">  if (hasNoDeps || hasChangedDeps) &#123; &#x2F;&#x2F; dependencies 不存在，或者 dependencies 有变化</span><br><span class="line">    callback();</span><br><span class="line">    _deps &#x3D; depArray;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到这里，我们又实现了一个可以工作的 useEffect，似乎没有那么难。</p>
+<p>此时我们应该可以解答一个问题：</p>
+<blockquote>
+<p>为什么第二个参数是空数组，相当于 componentDidMount ？</p>
+</blockquote>
+<p>因为依赖一直不变化，callback 不会二次执行。</p>
+<h4 id="Hooks-的复用问题"><a href="#Hooks-的复用问题" class="headerlink" title="Hooks 的复用问题"></a>Hooks 的复用问题</h4><p>到现在为止，我们已经实现了可以工作的 useState 和 useEffect。</p>
+<p>但是有一个很大的问题：它俩都只能<code>使用一次</code>，因为只有一个 _state 和 一个 _deps。</p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const [count, setCount] &#x3D; useState(0);</span><br><span class="line">const [username, setUsername] &#x3D; useState(&#39;fan&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>count 和 username 永远是相等的，因为他们共用了一个 _state，并没有地方能分别存储两个值。</p>
+<p>我们需要可以<code>存储多个</code> _state 和 _deps。</p>
+<p>如 《React Hooks: not magic, just arrays》所写，我们可以使用数组，来解决 Hooks 的复用问题。</p>
+<p>代码关键在于：</p>
+<p>初次渲染的时候，按照 useState，useEffect 的<code>顺序</code>，把 state，deps 等<code>按顺序塞到 memoizedState 数组</code>中。</p>
+<p>更新的时候，<code>按照顺序</code>，从 memoizedState 中把上次记录的值拿出来。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let memoizedState &#x3D; []; &#x2F;&#x2F; hooks 存放在这个数组</span><br><span class="line">let cursor &#x3D; 0; &#x2F;&#x2F; 当前 memoizedState 下标</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  memoizedState[cursor] &#x3D; memoizedState[cursor] || initialValue;</span><br><span class="line">  </span><br><span class="line">  const currentCursor &#x3D; cursor; &#x2F;&#x2F; 获取当前存储memoizedState下标</span><br><span class="line">  </span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    memoizedState[currentCursor] &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  return [memoizedState[cursor++], setState]; &#x2F;&#x2F; ++自加语法返回当前下标后 才执行加一</span><br><span class="line">  &#x2F;&#x2F; 返回当前 state，并把 cursor 加 1</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useEffect(callback, depArray) &#123;</span><br><span class="line">  const hasNoDeps &#x3D; !depArray; &#x2F;&#x2F; 没有依赖（第二个参数）存在</span><br><span class="line">  </span><br><span class="line">  const deps &#x3D; memoizedState[cursor]; &#x2F;&#x2F; 获取当前下标的memoizedState存储的依赖</span><br><span class="line">  </span><br><span class="line">  const hasChangedDeps &#x3D; deps</span><br><span class="line">    ? !depArray.every((el, i) &#x3D;&gt; el &#x3D;&#x3D;&#x3D; deps[i]) &#x2F;&#x2F; every全部相等才会返回true</span><br><span class="line">    : true;</span><br><span class="line">  </span><br><span class="line">  if (hasNoDeps || hasChangedDeps) &#123;</span><br><span class="line">    callback();</span><br><span class="line">    memoizedState[cursor] &#x3D; depArray;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  cursor++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="图片解读"><a href="#图片解读" class="headerlink" title="图片解读"></a>图片解读</h4><p>如果还是不清楚，可以看下面的图。</p>
+<p>我们用图来描述 memoizedState 及 cursor 变化的过程。</p>
+<h6 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlFUFBralhReVVGVUU3aGY2VkJqZGtKTHJlNlF5WGpKT3dIZFp3V0VZUHVBQ2p4YzRncmZmYVEvNjQw?x-oss-process=image/format,png" alt=""></p>
+<h6 id="2-初次渲染"><a href="#2-初次渲染" class="headerlink" title="2. 初次渲染"></a>2. 初次渲染</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlTWVhNaFFNR2tnZ25oRDdPN1BIeWJXd1F1T3VpY0wxQlZIaHFpYlpUZ0VCSnVNdVJuM3ZwSUVzdy82NDA?x-oss-process=image/format,png" alt=""></p>
+<h6 id="3-事件触发"><a href="#3-事件触发" class="headerlink" title="3. 事件触发"></a>3. 事件触发</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlqVHNLcldYVHNlV3lKR3k0enAxNnRpY085UWJFT0wycTlSNE9RMkpTZVZlaWFpYnQyaGljaWJ6bDJFQS82NDA?x-oss-process=image/format,png" alt=""></p>
+<h6 id="4-Re-Render"><a href="#4-Re-Render" class="headerlink" title="4. Re-Render"></a>4. Re-Render</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlsdFdpYVJZeU1ZZ25oUHEzWW0wZkw3bW9yM1p5U1g3dmRLR1RpY3Z5QWlhb1UySnZHNHdadkhLMncvNjQw?x-oss-process=image/format,png" alt=""></p>
+<p>到这里，我们实现了一个可以任意复用的 useState 和 useEffect。</p>
+<p><code>理解：useState存的是值 useEffect存的是依赖，setState的时候改变的是闭包缓存的那个下标的memoizedState的值， 然后下标会重置为0并且组件会重新执行走一遍。一直改变的是memoizedState，而hooks只是函数会重新执行。</code></p>
+<p>同时，也可以解答几个问题：</p>
+<p>Q：为什么只能在函数最外层调用 Hook？为什么不要在循环、条件判断或者子函数中调用？</p>
+<p>A：memoizedState 数组是<code>按hook定义的顺序</code>来放置数据的，如果 hook <code>顺序变化</code>，memoizedState 并<code>不会感知到</code>。</p>
+<p>Q：自定义的 Hook 是如何影响使用它的函数组件的？</p>
+<p>A：共享同一个 memoizedState，共享同一个顺序。</p>
+<p>Q：”Capture Value” 特性是如何产生的？</p>
+<p>A：每一次 ReRender 的时候，都是重新去执行函数组件了，对于之前已经执行过的函数组件，并不会做任何操作。</p>
+<h4 id="真正的-React-实现"><a href="#真正的-React-实现" class="headerlink" title="真正的 React 实现"></a>真正的 React 实现</h4><p>虽然我们用数组基本实现了一个可用的 Hooks，了解了 Hooks 的原理，但在 React 中，实现方式却有一些差异的。</p>
+<p>React 中是通过类似单链表的形式来代替数组的。</p>
+<p>源码地址：<a href="https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L336" target="_blank" rel="noopener">https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L336</a></p>
+<p>通过 next 按顺序串联所有的 hook。</p>
+<p><a href="https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477" target="_blank" rel="noopener">https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">type Hooks &#x3D; &#123;</span><br><span class="line">  memoizedState: any, &#x2F;&#x2F; 指向当前渲染节点 Fiber</span><br><span class="line">  baseState: any, &#x2F;&#x2F; 初始化 initialState， 已经每次 dispatch 之后 newState</span><br><span class="line">  baseUpdate: Update&lt;any&gt; | null,&#x2F;&#x2F; 当前需要更新的 Update ，每次更新完之后，会赋值上一个 		  	update，方便 react 在渲染错误的边缘，数据回溯</span><br><span class="line">  queue: UpdateQueue&lt;any&gt; | null,&#x2F;&#x2F; UpdateQueue 通过</span><br><span class="line">  next: Hook | null, &#x2F;&#x2F; link 到下一个 hooks，通过 next 串联每一 hooks</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">type Effect &#x3D; &#123;</span><br><span class="line">  tag: HookEffectTag, &#x2F;&#x2F; effectTag 标记当前 hook 作用在 life-cycles 的哪一个阶段</span><br><span class="line">  create: () &#x3D;&gt; mixed, &#x2F;&#x2F; 初始化 callback</span><br><span class="line">  destroy: (() &#x3D;&gt; mixed) | null, &#x2F;&#x2F; 卸载 callback</span><br><span class="line">  deps: Array&lt;mixed&gt; | null,</span><br><span class="line">  next: Effect, &#x2F;&#x2F; 同上</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>memoizedState，cursor 是存在哪里的？</p>
+<p>如何和每个函数组件一一对应的？</p>
+<p>我们知道，react 会生成一棵组件树（或Fiber 单链表），树中每个节点对应了一个组件。</p>
+<p>hooks 的数据就作为组件的一个信息，存储在这些节点上，伴随组件一起出生，一起死亡。</p>
+]]></content>
       <categories>
-          
-          <category> 默认分类 </category>
-          
+        <category>react#分类</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>react</tag>
+        <tag>hooks</tag>
+      </tags>
+  </entry>
 </search>

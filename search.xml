@@ -173,11 +173,26 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo多台电脑使用#文章页面上的显示名称，一般是中文</title>
+    <title>hexo多台电脑使用</title>
     <url>/2020/07/21/hexoUse/</url>
-    <content><![CDATA[<h4 id="一、关于搭建的流程"><a href="#一、关于搭建的流程" class="headerlink" title="一、关于搭建的流程"></a>一、关于搭建的流程</h4><p>\1. 创建仓库，<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>；<br>\2. 创建两个分支：master 与 hexo；<br>\3. 设置hexo为默认分支（因为我们只需要手动管理这个分支上的Hexo网站文件）；<br>\4. 使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库；<br>\5. 在本地<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行npm install hexo、hexo init、npm install 和 npm install hexo-deployer-git（此时当前分支应显示为hexo）;<br>\6. 修改_config.yml中的deploy参数，分支应为master；<br>\7. 依次执行git add .、git commit -m “…”、git push origin hexo提交网站相关的文件；<br>\8. 执行hexo g -d生成网站并部署到GitHub上。</p>
-<h4 id="二、关于日常的改动流程"><a href="#二、关于日常的改动流程" class="headerlink" title="二、关于日常的改动流程"></a>二、关于日常的改动流程</h4><p>\1. 依次执行git add .、git commit -m “…”、git push origin hexo指令将改动推送到GitHub（此时当前分支应为hexo）；<br>\2. 然后才执行hexo g -d发布网站到master分支上。</p>
-<h4 id="三、本地资料丢失后的流程"><a href="#三、本地资料丢失后的流程" class="headerlink" title="三、本地资料丢失后的流程"></a>三、本地资料丢失后的流程</h4><p>\1. 使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库（默认分支为hexo）；<br>\2. 在本地新拷贝的<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行下列指令：npm install hexo、npm install、npm install hexo-deployer-git（记得，不需要hexo init这条指令）。</p>
+    <content><![CDATA[<h4 id="一、关于搭建的流程"><a href="#一、关于搭建的流程" class="headerlink" title="一、关于搭建的流程"></a>一、关于搭建的流程</h4><ol>
+<li>创建仓库，<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>；</li>
+<li>创建两个分支：master 与 hexo；</li>
+<li>设置hexo为默认分支（因为我们只需要手动管理这个分支上的Hexo网站文件）；</li>
+<li>使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库；</li>
+<li>在本地<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行npm install hexo、hexo init、npm install 和 npm install hexo-deployer-git（此时当前分支应显示为hexo）;</li>
+<li>修改_config.yml中的deploy参数，分支应为master；</li>
+<li>依次执行git add .、git commit -m “…”、git push origin hexo提交网站相关的文件；</li>
+<li>执行hexo g -d生成网站并部署到GitHub上。</li>
+</ol>
+<h4 id="二、关于日常的改动流程"><a href="#二、关于日常的改动流程" class="headerlink" title="二、关于日常的改动流程"></a>二、关于日常的改动流程</h4><ol>
+<li>依次执行git add .、git commit -m “…”、git push origin hexo指令将改动推送到GitHub（此时当前分支应为hexo）；</li>
+<li>然后才执行hexo g -d发布网站到master分支上。</li>
+</ol>
+<h4 id="三、本地资料丢失后的流程"><a href="#三、本地资料丢失后的流程" class="headerlink" title="三、本地资料丢失后的流程"></a>三、本地资料丢失后的流程</h4><ol>
+<li>使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库（默认分支为hexo）；</li>
+<li>在本地新拷贝的<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行下列指令：npm install hexo、npm install、npm install hexo-deployer-git（记得，不需要hexo init这条指令）。</li>
+</ol>
 ]]></content>
       <categories>
         <category>奇淫技巧</category>

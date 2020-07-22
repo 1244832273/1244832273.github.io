@@ -1,6 +1,6 @@
 ---
 title: 队列 #文章页面上的显示名称，一般是中文
-date: 2020-7-21 15:00 #文章生成时间，一般不改，当然也可以任意修改
+date: 2020-7-22 15:00 #文章生成时间，一般不改，当然也可以任意修改
 categories: 学习JavaScript数据结构与算法 #分类
 tags: [JavaScript, 数据结构与算法, 学习JavaScript数据结构与算法] #文章标签
 description: 学习JavaScript数据结构与算法

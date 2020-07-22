@@ -217,20 +217,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -262,6 +262,258 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://1244832273.github.io/2020/07/21/js2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="鲁田文">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越努力越幸运">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/21/js2/" class="post-title-link" itemprop="url">数组</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-21 14:00:00" itemprop="dateCreated datePublished" datetime="2020-07-21T14:00:00+08:00">2020-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-22 14:08:50" itemprop="dateModified" datetime="2020-07-22T14:08:50+08:00">2020-07-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h4><p>​    在数组中添加和删除元素也很容易，但有时也会很棘手。假如我们有一个数组<code>numbers</code>，初始化成了0到9。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];</span><br></pre></td></tr></table></figure>
+<h5 id="在数组末尾插入元素"><a href="#在数组末尾插入元素" class="headerlink" title="在数组末尾插入元素"></a>在数组末尾插入元素</h5><p>如果想要给数组添加一个元素（比如<code>10</code>），只要把值赋给数组中最后一个空位上的元素即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers[numbers.length] &#x3D; 10;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在JavaScript中，数组是一个可以修改的对象。如果添加元素，它就会动态增长。在C和Java等其他语言里，我们要决定数组的大小，想添加元素就要创建一个全新的数组，不能简单地往其中添加所需的元素。</p>
+</blockquote>
+<h6 id="使用push方法"><a href="#使用push方法" class="headerlink" title="使用push方法"></a>使用push方法</h6><p>另外，还有一个<code>push</code>方法，能把元素添加到数组的末尾。通过<code>push</code>方法，我们能添加任意个元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numbers.push(11);</span><br><span class="line">numbers.push(12, 13);</span><br></pre></td></tr></table></figure>
+<p>如果输出<code>numbers</code>的话，就会看到从0到13的值。</p>
+<h5 id="在数组开头插入元素"><a href="#在数组开头插入元素" class="headerlink" title="在数组开头插入元素"></a>在数组开头插入元素</h5><p>现在，我们希望在数组中插入一个新元素（数-1），不像之前那样插入到最后，而是放到数组的开头。为了实现这个需求，首先要腾出数组里第一个元素的位置，把所有的元素向右移动一位。我们可以循环数组中的元素，从最后一位（长度值就是数组的末尾位置）开始，将对应的前一个元素（<code>i-1</code>）的值赋给它（<code>i</code>），依次处理，最后把我们想要的值赋给第一个位置（索引0）上。我们可以将这段逻辑写成一个函数，甚至将该方法直接添加在<code>Array</code>的原型上，使所有数组的实例都可以访问到该方法。下面的代码表现了这段逻辑。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.insertFirstPosition &#x3D; function(value) &#123;</span><br><span class="line">  for (let i &#x3D; this.length; i &gt;&#x3D; 0; i--) &#123;</span><br><span class="line">    this[i] &#x3D; this[i - 1];</span><br><span class="line">  &#125;</span><br><span class="line">  this[0] &#x3D; value;</span><br><span class="line">&#125;;</span><br><span class="line">numbers.insertFirstPosition(-1);</span><br></pre></td></tr></table></figure>
+<p>下图描述了我们刚才的操作过程。</p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js2-1.png" alt="/images/js2-1.png"></p>
+<h6 id="使用unshift方法"><a href="#使用unshift方法" class="headerlink" title="使用unshift方法"></a>使用<code>unshift</code>方法</h6><p>在JavaScript里，数组有一个方法叫<code>unshift</code>，可以直接把数值插入数组的开头（此方法背后的逻辑和<code>insertFirstPosition</code>方法的行为是一样的）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numbers.unshift(-2);</span><br><span class="line">numbers.unshift(-4, -3);</span><br></pre></td></tr></table></figure>
+<p>那么，用<code>unshift</code>方法，我们就可以在数组的开始处添加值-2，然后添加-3、-4等。这样数组就会输出数-4到13。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://1244832273.github.io/2020/07/21/js1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="鲁田文">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越努力越幸运">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/21/js1/" class="post-title-link" itemprop="url">js的==和===转换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-21 13:00:00" itemprop="dateCreated datePublished" datetime="2020-07-21T13:00:00+08:00">2020-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-22 14:00:16" itemprop="dateModified" datetime="2020-07-22T14:00:16+08:00">2020-07-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/21/js1/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://1244832273.github.io/2020/07/21/moban/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="鲁田文">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越努力越幸运">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/21/moban/" class="post-title-link" itemprop="url">js的==转换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-21 13:00:00" itemprop="dateCreated datePublished" datetime="2020-07-21T13:00:00+08:00">2020-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-22 11:22:47" itemprop="dateModified" datetime="2020-07-22T11:22:47+08:00">2020-07-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/21/moban/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -370,17 +622,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-20 13:50:50 / 修改时间：17:38:03" itemprop="dateCreated datePublished" datetime="2020-07-20T13:50:50+08:00">2020-07-20</time>
+              <time title="创建时间：2020-07-20 13:00:00" itemprop="dateCreated datePublished" datetime="2020-07-20T13:00:00+08:00">2020-07-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-22 10:22:31" itemprop="dateModified" datetime="2020-07-22T10:22:31+08:00">2020-07-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">react#分类</span></a>
+                  <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
                 </span>
             </span>
 
@@ -408,19 +666,15 @@
 <p><code>带着疑惑往下看</code></p>
 <h4 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h4><p>最简单的 <code>useState</code> 用法是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Counter() &#123;</span><br><span class="line">  var [count, setCount] &#x3D; useState(0);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;div&gt;&#123;count&#125;&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;Button onClick&#x3D;&#123;() &#x3D;&gt; &#123;setCount(count + 1)&#125;&#125;&gt;</span><br><span class="line">        点击</span><br><span class="line">      &lt;&#x2F;Button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>基于 <code>useState</code> 的用法, 我们尝试着自己实现一个 <code>useState</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  var state &#x3D; initialValue;</span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    state &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  return [state, setState];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>这时我们发现，点击 Button 的时候，count 并<code>不会变化</code>。</p>
 <p>为什么呢？我们没有存储 state，每次渲染 Counter 组件的时候，state 都是<code>新重置</code>的。</p>
 <p>自然我们就能想到，把 state <code>提取出来</code>，存在 useState <code>外面</code>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var _state; &#x2F;&#x2F; 把 state 存储在外面</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  _state &#x3D; _state || initialValue; &#x2F;&#x2F; 如果没有 _state，说明是第一次执行，把 initialValue 复制给它</span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    _state &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  return [_state, setState];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><code>重新渲染组件的时候会读取全局对象的值，拿到的就是最新值了</code></p>
 <h4 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h4><p>useEffect 是另外一个基础的 Hook，用来处理<code>副作用</code>，最简单的用法是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">    console.log(count);</span><br><span class="line"> &#125;, [count]);</span><br></pre></td></tr></table></figure>
-
 <p>我们知道 useEffect 有几个特点：</p>
 <ol>
 <li><p>有两个参数 <code>callback</code> 和 <code>dependencies</code> 数组</p>
@@ -432,7 +686,6 @@
 </ol>
 <p>实现一个 useEffect：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let _deps; &#x2F;&#x2F; _deps 记录 useEffect 上一次的 依赖</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useEffect(callback, depArray) &#123;</span><br><span class="line">  const hasNoDeps &#x3D; !depArray; &#x2F;&#x2F; 如果 dependencies 不存在</span><br><span class="line">  const hasChangedDeps &#x3D; _deps</span><br><span class="line">    ? !depArray.every((el, i) &#x3D;&gt; el &#x3D;&#x3D;&#x3D; _deps[i]) &#x2F;&#x2F; 两次的 dependencies 是否完全相等</span><br><span class="line">    : true;</span><br><span class="line">  &#x2F;* 如果 dependencies 不存在，或者 dependencies 有变化才执行回调函数*&#x2F;</span><br><span class="line">  if (hasNoDeps || hasChangedDeps) &#123; &#x2F;&#x2F; dependencies 不存在，或者 dependencies 有变化</span><br><span class="line">    callback();</span><br><span class="line">    _deps &#x3D; depArray;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>到这里，我们又实现了一个可以工作的 useEffect，似乎没有那么难。</p>
 <p>此时我们应该可以解答一个问题：</p>
 <blockquote>
@@ -443,7 +696,6 @@
 <p>但是有一个很大的问题：它俩都只能<code>使用一次</code>，因为只有一个 _state 和 一个 _deps。</p>
 <p>比如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const [count, setCount] &#x3D; useState(0);</span><br><span class="line">const [username, setUsername] &#x3D; useState(&#39;fan&#39;);</span><br></pre></td></tr></table></figure>
-
 <p>count 和 username 永远是相等的，因为他们共用了一个 _state，并没有地方能分别存储两个值。</p>
 <p>我们需要可以<code>存储多个</code> _state 和 _deps。</p>
 <p>如 《React Hooks: not magic, just arrays》所写，我们可以使用数组，来解决 Hooks 的复用问题。</p>
@@ -451,9 +703,6 @@
 <p>初次渲染的时候，按照 useState，useEffect 的<code>顺序</code>，把 state，deps 等<code>按顺序塞到 memoizedState 数组</code>中。</p>
 <p>更新的时候，<code>按照顺序</code>，从 memoizedState 中把上次记录的值拿出来。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">let memoizedState &#x3D; []; &#x2F;&#x2F; hooks 存放在这个数组</span><br><span class="line">let cursor &#x3D; 0; &#x2F;&#x2F; 当前 memoizedState 下标</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useState(initialValue) &#123;</span><br><span class="line">  memoizedState[cursor] &#x3D; memoizedState[cursor] || initialValue;</span><br><span class="line">  </span><br><span class="line">  const currentCursor &#x3D; cursor; &#x2F;&#x2F; 获取当前存储memoizedState下标</span><br><span class="line">  </span><br><span class="line">  function setState(newState) &#123;</span><br><span class="line">    memoizedState[currentCursor] &#x3D; newState;</span><br><span class="line">    render();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  return [memoizedState[cursor++], setState]; &#x2F;&#x2F; ++自加语法返回当前下标后 才执行加一</span><br><span class="line">  &#x2F;&#x2F; 返回当前 state，并把 cursor 加 1</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">function useEffect(callback, depArray) &#123;</span><br><span class="line">  const hasNoDeps &#x3D; !depArray; &#x2F;&#x2F; 没有依赖（第二个参数）存在</span><br><span class="line">  </span><br><span class="line">  const deps &#x3D; memoizedState[cursor]; &#x2F;&#x2F; 获取当前下标的memoizedState存储的依赖</span><br><span class="line">  </span><br><span class="line">  const hasChangedDeps &#x3D; deps</span><br><span class="line">    ? !depArray.every((el, i) &#x3D;&gt; el &#x3D;&#x3D;&#x3D; deps[i]) &#x2F;&#x2F; every全部相等才会返回true</span><br><span class="line">    : true;</span><br><span class="line">  </span><br><span class="line">  if (hasNoDeps || hasChangedDeps) &#123;</span><br><span class="line">    callback();</span><br><span class="line">    memoizedState[cursor] &#x3D; depArray;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  cursor++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h4 id="图片解读"><a href="#图片解读" class="headerlink" title="图片解读"></a>图片解读</h4><p>如果还是不清楚，可以看下面的图。</p>
 <p>我们用图来描述 memoizedState 及 cursor 变化的过程。</p>
 <h6 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h6><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kak82ZjVwZW5FY3FqZGZHQzlQVHhDNVVXaE9pYmZsdFlFUFBralhReVVGVUU3aGY2VkJqZGtKTHJlNlF5WGpKT3dIZFp3V0VZUHVBQ2p4YzRncmZmYVEvNjQw?x-oss-process=image/format,png" alt=""></p>
@@ -475,7 +724,6 @@
 <p>通过 next 按顺序串联所有的 hook。</p>
 <p><a href="https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477" target="_blank" rel="noopener">https://github.com/facebook/react/blob/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">type Hooks &#x3D; &#123;</span><br><span class="line">  memoizedState: any, &#x2F;&#x2F; 指向当前渲染节点 Fiber</span><br><span class="line">  baseState: any, &#x2F;&#x2F; 初始化 initialState， 已经每次 dispatch 之后 newState</span><br><span class="line">  baseUpdate: Update&lt;any&gt; | null,&#x2F;&#x2F; 当前需要更新的 Update ，每次更新完之后，会赋值上一个 		  	update，方便 react 在渲染错误的边缘，数据回溯</span><br><span class="line">  queue: UpdateQueue&lt;any&gt; | null,&#x2F;&#x2F; UpdateQueue 通过</span><br><span class="line">  next: Hook | null, &#x2F;&#x2F; link 到下一个 hooks，通过 next 串联每一 hooks</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">type Effect &#x3D; &#123;</span><br><span class="line">  tag: HookEffectTag, &#x2F;&#x2F; effectTag 标记当前 hook 作用在 life-cycles 的哪一个阶段</span><br><span class="line">  create: () &#x3D;&gt; mixed, &#x2F;&#x2F; 初始化 callback</span><br><span class="line">  destroy: (() &#x3D;&gt; mixed) | null, &#x2F;&#x2F; 卸载 callback</span><br><span class="line">  deps: Array&lt;mixed&gt; | null,</span><br><span class="line">  next: Effect, &#x2F;&#x2F; 同上</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p>memoizedState，cursor 是存在哪里的？</p>
 <p>如何和每个函数组件一一对应的？</p>
 <p>我们知道，react 会生成一棵组件树（或Fiber 单链表），树中每个节点对应了一个组件。</p>
@@ -522,17 +770,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-20 10:00:00 / 修改时间：15:07:00" itemprop="dateCreated datePublished" datetime="2020-07-20T10:00:00+08:00">2020-07-20</time>
+              <time title="创建时间：2020-07-20 10:00:00" itemprop="dateCreated datePublished" datetime="2020-07-20T10:00:00+08:00">2020-07-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-22 14:01:25" itemprop="dateModified" datetime="2020-07-22T14:01:25+08:00">2020-07-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">学习方法#分类</span></a>
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">学习方法</span></a>
                 </span>
             </span>
 

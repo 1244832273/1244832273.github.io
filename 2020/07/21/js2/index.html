@@ -22,21 +22,23 @@
     var CONFIG = {"hostname":"1244832273.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="来自 https:&#x2F;&#x2F;juejin.im&#x2F;post&#x2F;5acf22e6f265da23994eeac9   还有  https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;21193762">
+  <meta name="description" content="添加元素​    在数组中添加和删除元素也很容易，但有时也会很棘手。假如我们有一个数组numbers，初始化成了0到9。 1let numbers &#x3D; [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; 在数组末尾插入元素如果想要给数组添加一个元素（比如10），只要把值赋给数组中最后一个空位上的元素即可。 1numbers[numbers.length] &#x3D; 10;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo多台电脑使用">
-<meta property="og:url" content="https://1244832273.github.io/2020/07/21/hexoUse/index.html">
+<meta property="og:title" content="数组">
+<meta property="og:url" content="https://1244832273.github.io/2020/07/21/js2/index.html">
 <meta property="og:site_name" content="越努力越幸运">
-<meta property="og:description" content="来自 https:&#x2F;&#x2F;juejin.im&#x2F;post&#x2F;5acf22e6f265da23994eeac9   还有  https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;21193762">
+<meta property="og:description" content="添加元素​    在数组中添加和删除元素也很容易，但有时也会很棘手。假如我们有一个数组numbers，初始化成了0到9。 1let numbers &#x3D; [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; 在数组末尾插入元素如果想要给数组添加一个元素（比如10），只要把值赋给数组中最后一个空位上的元素即可。 1numbers[numbers.length] &#x3D; 10;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-22T02:20:10.101Z">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js2-1.png">
+<meta property="article:published_time" content="2020-07-21T06:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-22T06:08:50.597Z">
 <meta property="article:author" content="鲁田文">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="奇淫技巧">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="学习JavaScript数据结构与算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:/1244832273.github.io/themes/next/source/images/js2-1.png">
 
-<link rel="canonical" href="https://1244832273.github.io/2020/07/21/hexoUse/">
+<link rel="canonical" href="https://1244832273.github.io/2020/07/21/js2/">
 
 
 <script class="page-configurations">
@@ -49,7 +51,7 @@
   };
 </script>
 
-  <title>hexo多台电脑使用 | 越努力越幸运</title>
+  <title>数组 | 越努力越幸运</title>
   
 
 
@@ -210,7 +212,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、关于搭建的流程"><span class="nav-number">1.</span> <span class="nav-text">一、关于搭建的流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、关于日常的改动流程"><span class="nav-number">2.</span> <span class="nav-text">二、关于日常的改动流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、本地资料丢失后的流程"><span class="nav-number">3.</span> <span class="nav-text">三、本地资料丢失后的流程</span></a></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加元素"><span class="nav-number">1.</span> <span class="nav-text">添加元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在数组末尾插入元素"><span class="nav-number">1.1.</span> <span class="nav-text">在数组末尾插入元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用push方法"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用push方法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在数组开头插入元素"><span class="nav-number">1.2.</span> <span class="nav-text">在数组开头插入元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用unshift方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用unshift方法</span></a></li></ol></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -274,7 +276,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://1244832273.github.io/2020/07/21/hexoUse/">
+    <link itemprop="mainEntityOfPage" href="https://1244832273.github.io/2020/07/21/js2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -287,7 +289,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          hexo多台电脑使用
+          数组
         </h1>
 
         <div class="post-meta">
@@ -297,14 +299,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-07-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-21T00:00:00+08:00">2020-07-21</time>
+              <time title="创建时间：2020-07-21 14:00:00" itemprop="dateCreated datePublished" datetime="2020-07-21T14:00:00+08:00">2020-07-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-22 10:20:10" itemprop="dateModified" datetime="2020-07-22T10:20:10+08:00">2020-07-22</time>
+                <time title="修改时间：2020-07-22 14:08:50" itemprop="dateModified" datetime="2020-07-22T14:08:50+08:00">2020-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -312,12 +314,11 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/" itemprop="url" rel="index"><span itemprop="name">奇淫技巧</span></a>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
                 </span>
             </span>
 
           
-            <div class="post-description">来自 https://juejin.im/post/5acf22e6f265da23994eeac9   还有  https://www.zhihu.com/question/21193762</div>
 
         </div>
       </header>
@@ -328,24 +329,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="一、关于搭建的流程"><a href="#一、关于搭建的流程" class="headerlink" title="一、关于搭建的流程"></a>一、关于搭建的流程</h4><ol>
-<li>创建仓库，<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>；</li>
-<li>创建两个分支：master 与 hexo；</li>
-<li>设置hexo为默认分支（因为我们只需要手动管理这个分支上的Hexo网站文件）；</li>
-<li>使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库；</li>
-<li>在本地<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行npm install hexo、hexo init、npm install 和 npm install hexo-deployer-git（此时当前分支应显示为hexo）;</li>
-<li>修改_config.yml中的deploy参数，分支应为master；</li>
-<li>依次执行git add .、git commit -m “…”、git push origin hexo提交网站相关的文件；</li>
-<li>执行hexo g -d生成网站并部署到GitHub上。</li>
-</ol>
-<h4 id="二、关于日常的改动流程"><a href="#二、关于日常的改动流程" class="headerlink" title="二、关于日常的改动流程"></a>二、关于日常的改动流程</h4><ol>
-<li>依次执行git add .、git commit -m “…”、git push origin hexo指令将改动推送到GitHub（此时当前分支应为hexo）；</li>
-<li>然后才执行hexo g -d发布网站到master分支上。</li>
-</ol>
-<h4 id="三、本地资料丢失后的流程"><a href="#三、本地资料丢失后的流程" class="headerlink" title="三、本地资料丢失后的流程"></a>三、本地资料丢失后的流程</h4><ol>
-<li>使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库（默认分支为hexo）；</li>
-<li>在本地新拷贝的<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行下列指令：npm install hexo、npm install、npm install hexo-deployer-git（记得，不需要hexo init这条指令）。</li>
-</ol>
+        <h4 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h4><p>​    在数组中添加和删除元素也很容易，但有时也会很棘手。假如我们有一个数组<code>numbers</code>，初始化成了0到9。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];</span><br></pre></td></tr></table></figure>
+<h5 id="在数组末尾插入元素"><a href="#在数组末尾插入元素" class="headerlink" title="在数组末尾插入元素"></a>在数组末尾插入元素</h5><p>如果想要给数组添加一个元素（比如<code>10</code>），只要把值赋给数组中最后一个空位上的元素即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers[numbers.length] &#x3D; 10;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在JavaScript中，数组是一个可以修改的对象。如果添加元素，它就会动态增长。在C和Java等其他语言里，我们要决定数组的大小，想添加元素就要创建一个全新的数组，不能简单地往其中添加所需的元素。</p>
+</blockquote>
+<h6 id="使用push方法"><a href="#使用push方法" class="headerlink" title="使用push方法"></a>使用push方法</h6><p>另外，还有一个<code>push</code>方法，能把元素添加到数组的末尾。通过<code>push</code>方法，我们能添加任意个元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numbers.push(11);</span><br><span class="line">numbers.push(12, 13);</span><br></pre></td></tr></table></figure>
+<p>如果输出<code>numbers</code>的话，就会看到从0到13的值。</p>
+<h5 id="在数组开头插入元素"><a href="#在数组开头插入元素" class="headerlink" title="在数组开头插入元素"></a>在数组开头插入元素</h5><p>现在，我们希望在数组中插入一个新元素（数-1），不像之前那样插入到最后，而是放到数组的开头。为了实现这个需求，首先要腾出数组里第一个元素的位置，把所有的元素向右移动一位。我们可以循环数组中的元素，从最后一位（长度值就是数组的末尾位置）开始，将对应的前一个元素（<code>i-1</code>）的值赋给它（<code>i</code>），依次处理，最后把我们想要的值赋给第一个位置（索引0）上。我们可以将这段逻辑写成一个函数，甚至将该方法直接添加在<code>Array</code>的原型上，使所有数组的实例都可以访问到该方法。下面的代码表现了这段逻辑。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.insertFirstPosition &#x3D; function(value) &#123;</span><br><span class="line">  for (let i &#x3D; this.length; i &gt;&#x3D; 0; i--) &#123;</span><br><span class="line">    this[i] &#x3D; this[i - 1];</span><br><span class="line">  &#125;</span><br><span class="line">  this[0] &#x3D; value;</span><br><span class="line">&#125;;</span><br><span class="line">numbers.insertFirstPosition(-1);</span><br></pre></td></tr></table></figure>
+<p>下图描述了我们刚才的操作过程。</p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js2-1.png" alt="/images/js2-1.png"></p>
+<h6 id="使用unshift方法"><a href="#使用unshift方法" class="headerlink" title="使用unshift方法"></a>使用<code>unshift</code>方法</h6><p>在JavaScript里，数组有一个方法叫<code>unshift</code>，可以直接把数值插入数组的开头（此方法背后的逻辑和<code>insertFirstPosition</code>方法的行为是一样的）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numbers.unshift(-2);</span><br><span class="line">numbers.unshift(-4, -3);</span><br></pre></td></tr></table></figure>
+<p>那么，用<code>unshift</code>方法，我们就可以在数组的开始处添加值-2，然后添加-3、-4等。这样数组就会输出数-4到13。</p>
 
     </div>
 
@@ -355,8 +355,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/hexo/" rel="tag"># hexo</a>
-              <a href="/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/" rel="tag"># 奇淫技巧</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 学习JavaScript数据结构与算法</a>
           </div>
 
         
@@ -365,13 +365,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/20/react_1/" rel="prev" title="hook原理">
-      <i class="fa fa-chevron-left"></i> hook原理
+    <a href="/2020/07/21/js1/" rel="prev" title="js的==和===转换">
+      <i class="fa fa-chevron-left"></i> js的==和===转换
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/21/moban/" rel="next" title="js的==转换">
-      js的==转换 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     

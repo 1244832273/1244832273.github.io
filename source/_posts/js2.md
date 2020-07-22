@@ -51,7 +51,9 @@ numbers.insertFirstPosition(-1);
 
 下图描述了我们刚才的操作过程。
 
-![/images/js2-1.png](E:\1244832273.github.io\themes\next\source\images\js2-1.png)
+![](/images/js2-1.png)
+
+![](E:\1244832273.github.io\themes\next\source\images\js2-1.png)
 
 ###### 使用`unshift`方法
 

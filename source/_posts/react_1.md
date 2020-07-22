@@ -1,7 +1,7 @@
 ---
 title: hook原理
-date: 2020-7-20 13:00#文章生成时间，一般不改，当然也可以任意修改
-categories: react#分类
+date: 2020-7-20 13:00 #文章生成时间，一般不改，当然也可以任意修改
+categories: react #分类
 tags: [react, hooks] #文章标签
 
 ---

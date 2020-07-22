@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"1244832273.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="学习JavaScript数据结构与算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栈">
+<meta property="og:url" content="https://1244832273.github.io/2020/07/21/js3/index.html">
+<meta property="og:site_name" content="越努力越幸运">
+<meta property="og:description" content="学习JavaScript数据结构与算法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://1244832273.github.io/images/js3-2.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js3-2.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js3-1.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js3-1.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js3-3.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js3-3.png">
+<meta property="article:published_time" content="2020-07-21T07:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-22T07:42:26.512Z">
+<meta property="article:author" content="鲁田文">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="学习JavaScript数据结构与算法">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://1244832273.github.io/images/js3-2.png">
+
+<link rel="canonical" href="https://1244832273.github.io/2020/07/21/js3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>栈 | 越努力越幸运</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">越努力越幸运</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是栈"><span class="nav-number">1.</span> <span class="nav-text">什么是栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的创建"><span class="nav-number">2.</span> <span class="nav-text">栈的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#栈的全部代码"><span class="nav-number">2.1.</span> <span class="nav-text">栈的全部代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从十进制到二进制"><span class="nav-number">3.</span> <span class="nav-text">从十进制到二进制</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">鲁田文</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://1244832273.github.io/2020/07/21/js3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="鲁田文">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越努力越幸运">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          栈
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-21 15:00:00" itemprop="dateCreated datePublished" datetime="2020-07-21T15:00:00+08:00">2020-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-22 15:42:26" itemprop="dateModified" datetime="2020-07-22T15:42:26+08:00">2020-07-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">学习JavaScript数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">学习JavaScript数据结构与算法</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="什么是栈"><a href="#什么是栈" class="headerlink" title="什么是栈"></a>什么是栈</h4><p>栈是一种遵从后进先出（LIFO）原则的有序集合。新添加的或待删除的元素都保存在栈的 末尾，称作栈顶，另一端就叫栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。 </p>
+<p>例如，下图里的一摞书或者餐厅里堆放的盘子。</p>
+<p><img src="/images/js3-2.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js3-2.png" alt=""></p>
+<h4 id="栈的创建"><a href="#栈的创建" class="headerlink" title="栈的创建"></a>栈的创建</h4><p>我们将创建一个类来表示栈。让我们从基础开始，先声明这个类： function </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stack() &#123; &#x2F;&#x2F;各种属性和方法的声明 &#125;</span><br></pre></td></tr></table></figure>
+<p>首先，我们需要一种数据结构来保存栈里的元素。可以选择数组： var items = []; 接下来，要为我们的栈声明一些方法。</p>
+<p>  push(element(s))：添加一个（或几个）新元素到栈顶。</p>
+<p>  pop()：移除栈顶的元素，同时返回被移除的元素。 </p>
+<p> peek()：返回栈顶的元素，不对栈做任何修改（这个方法不会移除栈顶的元素，仅仅返 回它）。 </p>
+<p> isEmpty()：如果栈里没有任何元素就返回true，否则返回false。  clear()：移除栈里的所有元素。 </p>
+<p> size()：返回栈里的元素个数。这个方法和数组的length属性很类似。 我们要实现的第一个方法是push。这个方法负责往栈里添加新元素，有一点很重要：该方 法只添加元素到栈顶，也就是栈的末尾。</p>
+<p>push方法可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.push &#x3D; function(element)&#123;</span><br><span class="line"> items.push(element);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>因为我们使用了数组来保存栈里的元素，所以可以用上一章里学到的数组的push方法来实现。 接着，我们来实现pop方法。这个方法主要用来移除栈里的元素。栈遵从LIFO原则，因此移 出的是最后添加进去的元素。因此，我们可以用上一章讲数组时介绍的pop方法。</p>
+<p>栈的pop方法 可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.pop &#x3D; function()&#123;</span><br><span class="line"> return items.pop();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>只能用push和pop方法添加和删除栈中元素，这样一来，我们的栈自然就遵从了LIFO原则。 </p>
+<p>现在，为我们的类实现一些额外的辅助方法。如果想知道栈里最后添加的元素是什么，可以 用peek方法。这个方法将返回栈顶的元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.peek &#x3D; function()&#123;</span><br><span class="line"> return items[items.length-1];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>因为类内部是用数组保存元素的，所以访问数组的最后一个元素可以用 length - 1：</p>
+<p><img src="/images/js3-1.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js3-1.png" alt=""></p>
+<p>在上图中，有一个包含三个元素的栈，因此内部数组的长度就是3。数组中最后一项的位置 是2，length - 1（31）正好是2。 </p>
+<p>下一个要实现的方法是 isEmpty，如果栈为空的话将返回true，否则就返回false：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.isEmpty &#x3D; function()&#123;</span><br><span class="line"> return items.length &#x3D;&#x3D; 0;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="栈的全部代码"><a href="#栈的全部代码" class="headerlink" title="栈的全部代码"></a>栈的全部代码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function Stack() &#123;</span><br><span class="line"> var items &#x3D; [];</span><br><span class="line"> this.push &#x3D; function(element)&#123;</span><br><span class="line"> items.push(element);</span><br><span class="line"> &#125;;</span><br><span class="line"> this.pop &#x3D; function()&#123;</span><br><span class="line"> return items.pop();</span><br><span class="line"> &#125;;</span><br><span class="line"> this.peek &#x3D; function()&#123; &#x2F;&#x2F; 返回最后一位</span><br><span class="line"> return items[items.length-1];</span><br><span class="line"> &#125;;</span><br><span class="line"> this.isEmpty &#x3D; function()&#123;</span><br><span class="line"> return items.length &#x3D;&#x3D; 0;</span><br><span class="line"> &#125;;</span><br><span class="line"> this.size &#x3D; function()&#123;</span><br><span class="line"> return items.length;</span><br><span class="line"> &#125;;</span><br><span class="line"> this.clear &#x3D; function()&#123;</span><br><span class="line"> items &#x3D; [];</span><br><span class="line"> &#125;;</span><br><span class="line"> this.print &#x3D; function()&#123;</span><br><span class="line"> console.log(items.toString());</span><br><span class="line"> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="从十进制到二进制"><a href="#从十进制到二进制" class="headerlink" title="从十进制到二进制"></a>从十进制到二进制</h4><p>现实生活中，我们主要使用十进制。但在计算科学中，二进制非常重要，因为计算机里的所 有内容都是用二进制数字表示的（0和1）。没有十进制和二进制相互转化的能力，与计算机交流 就很困难。 </p>
+<p>要把十进制转化成二进制，我们可以将该十进制数字和2整除（二进制是满二进一），直到结 果是0为止。举个例子，把十进制的数字10转化成二进制的数字，过程大概是这样：</p>
+<p><img src="/images/js3-3.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js3-3.png" alt=""></p>
+<p>下面是对应的算法描述：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function divideBy2(decNumber)&#123;</span><br><span class="line"> var remStack &#x3D; new Stack(), &#x2F;&#x2F; new一个栈对象</span><br><span class="line"> rem,</span><br><span class="line"> binaryString &#x3D; &#39;&#39;;</span><br><span class="line"> while (decNumber &gt; 0)&#123; &#x2F;&#x2F;&#123;1&#125;判断取余后的值是否大于0</span><br><span class="line">     rem &#x3D; Math.floor(decNumber % 2); &#x2F;&#x2F;&#123;2&#125; 取余的值</span><br><span class="line">     remStack.push(rem); &#x2F;&#x2F;&#123;3&#125; </span><br><span class="line">     decNumber &#x3D; Math.floor(decNumber &#x2F; 2); &#x2F;&#x2F;&#123;4&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> while (!remStack.isEmpty())&#123; &#x2F;&#x2F;&#123;5&#125;利用栈的后进先出原则来输出取余后的值</span><br><span class="line">	 binaryString +&#x3D; remStack.pop().toString();</span><br><span class="line"> &#125;</span><br><span class="line"> return binaryString;</span><br></pre></td></tr></table></figure>
+<p>在这段代码里，当结果满足和2做整除的条件时（行{1}），我们会获得当前结果和2的余数， 放到栈里（行{2}、{3}）。然后让结果和2做整除（行{4}）。</p>
+<p>另外请注意：JavaScript有数字类型， 但是它不会区分究竟是整数还是浮点数。</p>
+<p>因此，要使用Math.floor函数让除法的操作仅返回整 数部分。最后，用pop方法把栈中的元素都移除，把出栈的元素变成连接成字符串（行{5}）。 </p>
+<p>用刚才写的算法做一些测试，使用以下代码把结果输出到控制台里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(divideBy2(233)); &#x2F;&#x2F;输出11101001</span><br><span class="line">console.log(divideBy2(10)); &#x2F;&#x2F;输出1010</span><br><span class="line">console.log(divideBy2(1000)); &#x2F;&#x2F;输出1111101000</span><br></pre></td></tr></table></figure>
+<p>我们很容易修改之前的算法，使之能把十进制转换成任何进制。除了让十进制数字和2整除 转成二进制数，还可以传入其他任意进制的基数为参数，</p>
+<p>就像下面算法这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function baseConverter(decNumber, base)&#123;</span><br><span class="line"> var remStack &#x3D; new Stack(),</span><br><span class="line"> rem,</span><br><span class="line"> baseString &#x3D; &#39;&#39;,</span><br><span class="line"> digits &#x3D; &#39;0123456789ABCDEF&#39;; &#x2F;&#x2F;&#123;6&#125;</span><br><span class="line"> while (decNumber &gt; 0)&#123;</span><br><span class="line">     rem &#x3D; Math.floor(decNumber % base);</span><br><span class="line">     remStack.push(rem);</span><br><span class="line">     decNumber &#x3D; Math.floor(decNumber &#x2F; base);</span><br><span class="line"> &#125;</span><br><span class="line"> while (!remStack.isEmpty())&#123;</span><br><span class="line"> 	baseString +&#x3D; digits[remStack.pop()]; &#x2F;&#x2F;&#123;7&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> return baseString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们只需要改变一个地方。在将十进制转成二进制时，余数是0或1；在将十进制转成八进制 时，余数是0到8之间的数；但是将十进制转成16进制时，余数是0到8之间的数字加上A、B、C、 D、E和F（对应10、11、12、13、14和15）。因此，我们需要对栈中的数字做个转化才可以（行 {6}和行{7}）。</p>
+<p>可以使用之前的算法，输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(baseConverter(100345, 2)); &#x2F;&#x2F;输出11000011111111001</span><br><span class="line">console.log(baseConverter(100345, 8)); &#x2F;&#x2F;输出303771</span><br><span class="line">console.log(baseConverter(100345, 16)); &#x2F;&#x2F;输出187F9</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 学习JavaScript数据结构与算法</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/21/js4/" rel="prev" title="队列">
+      <i class="fa fa-chevron-left"></i> 队列
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鲁田文</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

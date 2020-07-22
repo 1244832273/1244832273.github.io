@@ -31,8 +31,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://1244832273.github.io/images/js2-1.png">
 <meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js2-1.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js2-2.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js2-2.png">
 <meta property="article:published_time" content="2020-07-21T06:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-22T06:14:50.895Z">
+<meta property="article:modified_time" content="2020-07-22T06:29:38.291Z">
 <meta property="article:author" content="鲁田文">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="学习JavaScript数据结构与算法">
@@ -213,7 +215,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加元素"><span class="nav-number">1.</span> <span class="nav-text">添加元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在数组末尾插入元素"><span class="nav-number">1.1.</span> <span class="nav-text">在数组末尾插入元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用push方法"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用push方法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在数组开头插入元素"><span class="nav-number">1.2.</span> <span class="nav-text">在数组开头插入元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用unshift方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用unshift方法</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加元素"><span class="nav-number">1.</span> <span class="nav-text">添加元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在数组末尾插入元素"><span class="nav-number">1.1.</span> <span class="nav-text">在数组末尾插入元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用push方法"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用push方法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在数组开头插入元素"><span class="nav-number">1.2.</span> <span class="nav-text">在数组开头插入元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用unshift方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用unshift方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除元素"><span class="nav-number">2.</span> <span class="nav-text">删除元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#从数组末尾删除元素pop"><span class="nav-number">2.1.</span> <span class="nav-text">从数组末尾删除元素pop</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从数组开头删除元素shift"><span class="nav-number">2.2.</span> <span class="nav-text">从数组开头删除元素shift</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript的数组方法参考"><span class="nav-number">3.</span> <span class="nav-text">JavaScript的数组方法参考</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用reduce方法"><span class="nav-number">3.0.1.</span> <span class="nav-text">使用reduce方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ECMAScript-6和数组的新功能"><span class="nav-number">4.</span> <span class="nav-text">ECMAScript 6和数组的新功能</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用-iterator对象"><span class="nav-number">4.0.1.</span> <span class="nav-text">使用@@iterator对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排序元素"><span class="nav-number">5.</span> <span class="nav-text">排序元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自定义排序"><span class="nav-number">5.1.</span> <span class="nav-text">自定义排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串排序"><span class="nav-number">5.2.</span> <span class="nav-text">字符串排序</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -227,20 +229,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -307,7 +309,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-22 14:14:50" itemprop="dateModified" datetime="2020-07-22T14:14:50+08:00">2020-07-22</time>
+                <time title="修改时间：2020-07-22 14:29:38" itemprop="dateModified" datetime="2020-07-22T14:29:38+08:00">2020-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -348,6 +350,191 @@
 <h6 id="使用unshift方法"><a href="#使用unshift方法" class="headerlink" title="使用unshift方法"></a>使用<code>unshift</code>方法</h6><p>在JavaScript里，数组有一个方法叫<code>unshift</code>，可以直接把数值插入数组的开头（此方法背后的逻辑和<code>insertFirstPosition</code>方法的行为是一样的）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numbers.unshift(-2);</span><br><span class="line">numbers.unshift(-4, -3);</span><br></pre></td></tr></table></figure>
 <p>那么，用<code>unshift</code>方法，我们就可以在数组的开始处添加值-2，然后添加-3、-4等。这样数组就会输出数-4到13。</p>
+<h4 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h4><p>目前为止，我们已经学习了如何给数组的开始和结尾位置添加元素。下面来看一下怎样从数组中删除元素。</p>
+<h5 id="从数组末尾删除元素pop"><a href="#从数组末尾删除元素pop" class="headerlink" title="从数组末尾删除元素pop"></a>从数组末尾删除元素<code>pop</code></h5><p>要删除数组里最靠后的元素，可以用<code>pop</code>方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers.pop();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过<code>push</code>和<code>pop</code>方法，就能用数组来模拟栈，你将在下一章看到这部分内容。</p>
+</blockquote>
+<p>现在，数组输出的数是-4到12，数组的长度是17。</p>
+<h5 id="从数组开头删除元素shift"><a href="#从数组开头删除元素shift" class="headerlink" title="从数组开头删除元素shift"></a>从数组开头删除元素shift</h5><p>如果要移除数组里的第一个元素，可以用下面的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (let i &#x3D; 0; i &lt; numbers.length; i++) &#123;</span><br><span class="line">  numbers[i] &#x3D; numbers[i + 1];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下图呈现了这段代码的执行过程。</p>
+<p><img src="/images/js2-2.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js2-2.png" alt=""></p>
+<p>我们把数组里所有的元素都左移了一位，但数组的长度依然是17，这意味着数组中有额外的一个元素（值是<code>undefined</code>）。在最后一次循环里，<code>i+1</code>引用了数组里还未初始化的一个位置。在Java、C/C+或C#等一些语言里，这样写可能会抛出异常，因此不得不在<code>numbers.length- 1</code>处停止循环。</p>
+<p>可以看到，我们只是把数组第一位的值用第二位覆盖了，并没有删除元素（因为数组的长度和之前还是一样的，并且多了一个未定义元素）。</p>
+<p>要从数组中移除这个值，还可以创建一个包含刚才所讨论逻辑的方法，叫作<code>removeFirstPosition</code>。但是，要真正从数组中移除这个元素，我们需要创建一个新的数组，将所有不是<code>undefined</code>的值从原来的数组复制到新的数组中，并且将这个新的数组赋值给我们的数组。要完成这项工作，也可以像下面这样创建一个<code>reIndex</code>方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.reIndex &#x3D; function(myArray) &#123;</span><br><span class="line">  const newArray &#x3D; [];</span><br><span class="line">  for(let i &#x3D; 0; i &lt; myArray.length; i++ ) &#123;</span><br><span class="line">    if (myArray[i] !&#x3D;&#x3D; undefined) &#123;</span><br><span class="line">      &#x2F;&#x2F; console.log(myArray[i]);</span><br><span class="line">      newArray.push(myArray[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return newArray;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 手动移除第一个元素并重新排序</span><br><span class="line">Array.prototype.removeFirstPosition &#x3D; function() &#123;</span><br><span class="line">  for (let i &#x3D; 0; i &lt; this.length; i++) &#123;</span><br><span class="line">    this[i] &#x3D; this[i + 1];</span><br><span class="line">  &#125;</span><br><span class="line">  return this.reIndex(this);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">numbers &#x3D; numbers.removeFirstPosition();</span><br></pre></td></tr></table></figure>
+<p><strong>使用<code>shift</code>方法</strong></p>
+<p>要删除数组的第一个元素，可以用<code>shift</code>方法实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers.shift();</span><br></pre></td></tr></table></figure>
+<p>假如本来数组中的值是从-4到12，长度为17。执行了上述代码后，数组就只有-3到12了，长度也会减小到16。</p>
+<h4 id="JavaScript的数组方法参考"><a href="#JavaScript的数组方法参考" class="headerlink" title="JavaScript的数组方法参考"></a>JavaScript的数组方法参考</h4><p>在JavaScript里，数组是经过改进的对象，这意味着创建的每个数组都有一些可用的方法。数组很有趣，因为它十分强大，并且相比其他语言中的数组，JavaScript中的数组有许多很好用的方法。这样就不用再为它开发一些基本功能了，例如在数据结构的中间添加或删除元素。</p>
+<p>下表详述了数组的一些核心方法，其中的一些我们已经学习过了。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>concat</code></td>
+<td style="text-align:left">连接2个或更多数组，并返回结果</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>every</code></td>
+<td style="text-align:left">对数组中的每个元素运行给定函数，如果该函数对每个元素都返回<code>true</code>，则返回<code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>filter</code></td>
+<td style="text-align:left">对数组中的每个元素运行给定函数，返回该函数会返回<code>true</code>的元素组成的数组</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>forEach</code></td>
+<td style="text-align:left">对数组中的每个元素运行给定函数。这个方法没有返回值</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>join</code></td>
+<td style="text-align:left">将所有的数组元素连接成一个字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>indexOf</code></td>
+<td style="text-align:left">返回第一个与给定参数相等的数组元素的索引，没有找到则返回<code>-1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>lastIndexOf</code></td>
+<td style="text-align:left">返回在数组中搜索到的与给定参数相等的元素的索引里最大的值</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>map</code></td>
+<td style="text-align:left">对数组中的每个元素运行给定函数，返回每次函数调用的结果组成的数组</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>reverse</code></td>
+<td style="text-align:left">颠倒数组中元素的顺序，原先第一个元素现在变成最后一个，同样原先的最后一个元素变成了现在的第一个</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>slice</code></td>
+<td style="text-align:left">传入索引值，将数组里对应索引范围内的元素作为新数组返回</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>some</code></td>
+<td style="text-align:left">对数组中的每个元素运行给定函数，如果任一元素返回<code>true</code>，则返回<code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>sort</code></td>
+<td style="text-align:left">按照字母顺序对数组排序，支持传入指定排序方法的函数作为参数</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>toString</code></td>
+<td style="text-align:left">将数组作为字符串返回</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>valueOf</code></td>
+<td style="text-align:left">和<code>toString</code>类似，将数组作为字符串返回</td>
+</tr>
+</tbody>
+</table>
+<p>我们已经学过了<code>push</code>、<code>pop</code>、<code>shift</code>、<code>unshift</code>和<code>splice</code>方法。</p>
+<h6 id="使用reduce方法"><a href="#使用reduce方法" class="headerlink" title="使用reduce方法"></a><strong>使用<code>reduce</code>方法</strong></h6><p>最后是<code>reduce</code>方法。<code>reduce</code>方法接收一个有如下四个参数的函数：<code>previousValue</code>、<code>currentValue</code>、<code>index</code>和<code>array</code>。因为<code>index</code>和<code>array</code>是可选的参数，所以如果用不到它们的话，可以不传。这个函数会返回一个将被叠加到累加器的值，<code>reduce</code>方法停止执行后会返回这个累加器。如果要对一个数组中的所有元素求和，这就很有用。下面是一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers.reduce((previous, current) &#x3D;&gt; previous + current);</span><br></pre></td></tr></table></figure>
+<p>输出将是<code>120</code></p>
+<h4 id="ECMAScript-6和数组的新功能"><a href="#ECMAScript-6和数组的新功能" class="headerlink" title="ECMAScript 6和数组的新功能"></a>ECMAScript 6和数组的新功能</h4><p>第1章提到过，<strong>ECMAScript 2015</strong>（<strong>ES6</strong>或<strong>ES2015</strong>）和更新的规范（2015+）给JavaScript语言带来了新的功能。</p>
+<p>下表列出了ES2015和ES2016新增的数组方法。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>@@iterator</code></td>
+<td style="text-align:left">返回一个包含数组键值对的迭代器对象，可以通过同步调用得到数组元素的键值对</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>copyWithin</code></td>
+<td style="text-align:left">复制数组中一系列元素到同一数组指定的起始位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>entries</code></td>
+<td style="text-align:left">返回包含数组所有键值对的<code>@@iterator</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>includes</code></td>
+<td style="text-align:left">如果数组中存在某个元素则返回<code>true</code>，否则返回<code>false</code>。E2016新增</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find</code></td>
+<td style="text-align:left">根据回调函数给定的条件从数组中查找元素，如果找到则返回该元素</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>findIndex</code></td>
+<td style="text-align:left">根据回调函数给定的条件从数组中查找元素，如果找到则返回该元素在数组中的索引</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fill</code></td>
+<td style="text-align:left">用静态值填充数组</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>from</code></td>
+<td style="text-align:left">根据已有数组创建一个新数组</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>keys</code></td>
+<td style="text-align:left">返回包含数组所有索引的<code>@@iterator</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>of</code></td>
+<td style="text-align:left">根据传入的参数创建一个新数组</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>values</code></td>
+<td style="text-align:left">返回包含数组中所有值的<code>@@iterator</code></td>
+</tr>
+</tbody>
+</table>
+<p>除了这些新的方法，还有一种用<code>for...of</code>循环来迭代数组的新做法，以及可以从数组实例得到的迭代器对象。</p>
+<h6 id="使用-iterator对象"><a href="#使用-iterator对象" class="headerlink" title="使用@@iterator对象"></a>使用<code>@@iterator</code>对象</h6><p>ES2015还为<code>Array</code>类增加了一个<code>@@iterator</code>属性，需要通过<code>Symbol.iterator</code>来访问。代码如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let iterator &#x3D; numbers[Symbol.iterator]();</span><br><span class="line">console.log(iterator.next().value); &#x2F;&#x2F; 1</span><br><span class="line">console.log(iterator.next().value); &#x2F;&#x2F; 2</span><br><span class="line">console.log(iterator.next().value); &#x2F;&#x2F; 3</span><br><span class="line">console.log(iterator.next().value); &#x2F;&#x2F; 4</span><br><span class="line">console.log(iterator.next().value); &#x2F;&#x2F; 5</span><br></pre></td></tr></table></figure>
+<p>然后，不断调用迭代器的<code>next</code>方法，就能依次得到数组中的值。<code>numbers</code>数组中有15个值，因此需要调用15次<code>iterator.next().value</code>。</p>
+<p>我们可以用下面的代码来输出<code>numbers</code>数组中的15个值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iterator &#x3D; numbers[Symbol.iterator]();</span><br><span class="line">for (const n of iterator) &#123;</span><br><span class="line">  console.log(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数组中的所有值都迭代完之后，<code>iterator.next().value</code>会返回<code>undefined</code>。</p>
+<h4 id="排序元素"><a href="#排序元素" class="headerlink" title="排序元素"></a>排序元素</h4><p>通过本书，我们能学到如何编写最常用的搜索和排序算法。其实，JavaScript里也提供了一个排序方法和一组搜索方法。让我们来看看。</p>
+<p>首先，我们想反序输出数组<code>numbers</code>（它本来的排序是<code>1, 2, 3, 4, ..., 15</code>）。要实现这样的功能，可以用<code>reverse</code>方法，然后数组内元素就会反序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers.reverse();</span><br></pre></td></tr></table></figure>
+<p>现在，输出<code>numbers</code>的话就会看到<code>[15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]</code>。然后，我们使用<code>sort</code>方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers.sort();</span><br></pre></td></tr></table></figure>
+<p>然而，如果输出数组，结果会是<code>[1, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5, 6, 7, 8, 9]</code>。看起来不大对，是吧？这是因为<code>sort</code>方法在对数组做排序时，把元素默认成字符串进行相互比较。</p>
+<p>我们可以传入自己写的比较函数。因为数组里都是数，所以可以像下面这样写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers.sort((a, b) &#x3D;&gt; a - b);</span><br></pre></td></tr></table></figure>
+<p>在<code>b</code>大于<code>a</code>时，这段代码会返回负数，反之则返回正数。如果相等的话，就会返回0。也就是说返回的是负数，就说明<code>a</code>比<code>b</code>小，这样<code>sort</code>就能根据返回值的情况对数组进行排序。</p>
+<p>之前的代码也可以表示成如下这样，会更清晰一些。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function compare(a, b) &#123;</span><br><span class="line">  if (a &lt; b) &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  if (a &gt; b) &#123;</span><br><span class="line">    return 1;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; a必须等于b</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line">numbers.sort(compare);</span><br></pre></td></tr></table></figure>
+<p>这是因为JavaScript的<code>sort</code>方法接收<code>compareFunction</code>作为参数，然后<code>sort</code>会用它排序数组。在这个例子里，我们声明了一个用来比较数组元素的函数，使数组按升序排序。</p>
+<h5 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h5><p>我们可以对任何对象类型的数组排序，也可以创建<code>compareFunction</code>来比较元素。例如，对象<code>Person</code>有名字和年龄属性，我们希望根据年龄排序，就可以这么写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const friends &#x3D; [</span><br><span class="line">  &#123; name: &#39;John&#39;, age: 30 &#125;,</span><br><span class="line">  &#123; name: &#39;Ana&#39;, age: 20 &#125;,</span><br><span class="line">  &#123; name: &#39;Chris&#39;, age: 25 &#125;, &#x2F;&#x2F; ES2017允许存在尾逗号</span><br><span class="line">];</span><br><span class="line">function comparePerson(a, b) &#123;</span><br><span class="line">  if (a.age &lt; b.age) &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  if (a.age &gt; b.age) &#123;</span><br><span class="line">    return 1;</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line">console.log(friends.sort(comparePerson));</span><br></pre></td></tr></table></figure>
+<p>在这个例子里，最后会输出<code>Ana(20), Chris(25), John(30)</code>。</p>
+<h5 id="字符串排序"><a href="#字符串排序" class="headerlink" title="字符串排序"></a>字符串排序</h5><p>假如有这样一个数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let names &#x3D; [&#39;Ana&#39;, &#39;ana&#39;, &#39;john&#39;, &#39;John&#39;];</span><br><span class="line">console.log(names.sort());</span><br></pre></td></tr></table></figure>
+<p>你猜会输出什么？答案如下所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&quot;Ana&quot;, &quot;John&quot;, &quot;ana&quot;, &quot;john&quot;]</span><br></pre></td></tr></table></figure>
+<p>既然<code>a</code>在字母表里排第一位，为何<code>ana</code>却排在了<code>John</code>之后呢？这是因为JavaScript在做字符比较的时候，是根据字符对应的ASCII值来比较的。例如，<code>A</code>、<code>J</code>、<code>a</code>、<code>j</code>对应的ASCII值分别是<code>65</code>、<code>74</code>、<code>97</code>、<code>106</code>。</p>
+<p>虽然<code>a</code>在字母表里是最靠前的，但<code>J</code>的ASCII值比<code>a</code>的小，所以排在了<code>a</code>前面。</p>
+<p>现在，如果给<code>sort</code>传入一个忽略大小写的比较函数，将输出<code>[&quot;Ana&quot;, &quot;ana&quot;, &quot;John&quot;, &quot;john&quot;]</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">names &#x3D; [&#39;Ana&#39;, &#39;ana&#39;, &#39;john&#39;, &#39;John&#39;]; &#x2F;&#x2F; 重置数组的初始状态</span><br><span class="line">console.log(names.sort((a, b) &#x3D;&gt; &#123;</span><br><span class="line">  if (a.toLowerCase() &lt; b.toLowerCase()) &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  if (a.toLowerCase() &gt; b.toLowerCase()) &#123;</span><br><span class="line">    return 1;</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，<code>sort</code>函数不会有任何作用。它会按照现在的大小写字母顺序排序。</p>
+<p>如果希望小写字母排在前面，那么需要使用<code>localeCompare</code>方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">names.sort((a, b) &#x3D;&gt; a.localeCompare(b));</span><br></pre></td></tr></table></figure>
+<p>输出结果将是<code>[&quot;ana&quot;, &quot;Ana&quot;, &quot;john&quot;, &quot;John&quot;]</code>。</p>
+<p>假如对带有重音符号的字符做排序的话，也可以用<code>localeCompare</code>来实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const names2 &#x3D; [&#39;Maève&#39;, &#39;Maeve&#39;];</span><br><span class="line">console.log(names2.sort((a, b) &#x3D;&gt; a.localeCompare(b)));</span><br></pre></td></tr></table></figure>
+<p>最后输出的结果将是<code>[&quot;Maeve&quot;, &quot;Maève&quot;]</code>。</p>
 
     </div>
 
@@ -370,7 +557,10 @@
     <a href="/2020/07/21/js1/" rel="prev" title="js的==和===转换">
       <i class="fa fa-chevron-left"></i> js的==和===转换
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/21/js4/" rel="next" title="队列">
+      队列 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     

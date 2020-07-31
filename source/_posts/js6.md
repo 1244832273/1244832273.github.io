@@ -175,15 +175,11 @@ this.removeAt = function(position){
 
 ​		我们来看看如何移除第一个元素。current变量是对列表中第一个元素的引用，也就是我 们想移除的元素。需要做的就是改变head的引用，将其从current改为下一个元素 （current.next——行{1}）。但我们还需要更新current.next指向上一个元素的指针（因为 第一个元素的prev指针是null）。因此，把head.prev的引用改为null（行{3}——因为head 也指向列表中新的第一个元素，或者也可以用current.next.prev）。由于还需要控制tail 的引用，我们可以检查要移除的元素是否是第一个元素，如果是，只需要把tail也设为null（行{2}）。 
 
-![](E:\1244832273.github.io\themes\next\source\images\js6-6.png)
-
 ![](/images/js6-6.png)
 
  		下一种场景是从最后一个位置移除元素。既然已经有了对最后一个元素的引用（tail），我 们就不需要为找到它而迭代列表。这样我们也就可以把tail的引用赋给current变量（行{4}）。 接下来，需要把tail的引用更新为列表中倒数第二个元素（current.prev，或者tail.prev 也可以）。既然tail指向了倒数第二个元素，我们就只需要把next指针更新为null（tail.next = null）。
 
 下图演示了这一行为： 
-
-![](E:\1244832273.github.io\themes\next\source\images\js6-7.png)
 
 ![](/images/js6-7.png)
 

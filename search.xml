@@ -1,36 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hexo多台电脑使用</title>
-    <url>/2020/07/21/hexoUse/</url>
-    <content><![CDATA[<h4 id="一、关于搭建的流程"><a href="#一、关于搭建的流程" class="headerlink" title="一、关于搭建的流程"></a>一、关于搭建的流程</h4><ol>
-<li>创建仓库，<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>；</li>
-<li>创建两个分支：master 与 hexo；</li>
-<li>设置hexo为默认分支（因为我们只需要手动管理这个分支上的Hexo网站文件）；</li>
-<li>使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库；</li>
-<li>在本地<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行npm install hexo、hexo init、npm install 和 npm install hexo-deployer-git（此时当前分支应显示为hexo）;</li>
-<li>修改_config.yml中的deploy参数，分支应为master；</li>
-<li>依次执行git add .、git commit -m “…”、git push origin hexo提交网站相关的文件；</li>
-<li>执行hexo g -d生成网站并部署到GitHub上。</li>
-</ol>
-<h4 id="二、关于日常的改动流程"><a href="#二、关于日常的改动流程" class="headerlink" title="二、关于日常的改动流程"></a>二、关于日常的改动流程</h4><ol>
-<li>依次执行git add .、git commit -m “…”、git push origin hexo指令将改动推送到GitHub（此时当前分支应为hexo）；</li>
-<li>然后才执行hexo g -d发布网站到master分支上。</li>
-</ol>
-<h4 id="三、本地资料丢失后的流程"><a href="#三、本地资料丢失后的流程" class="headerlink" title="三、本地资料丢失后的流程"></a>三、本地资料丢失后的流程</h4><ol>
-<li>使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库（默认分支为hexo）；</li>
-<li>在本地新拷贝的<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行下列指令：npm install hexo、npm install、npm install hexo-deployer-git（记得，不需要hexo init这条指令）。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>奇淫技巧</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>奇淫技巧</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>js的==和===转换</title>
     <url>/2020/07/21/js1/</url>
     <content><![CDATA[<h3 id="相等运算符（-和-）"><a href="#相等运算符（-和-）" class="headerlink" title="相等运算符（==和===）"></a>相等运算符（<code>==</code>和<code>===</code>）</h3><p>这两个相等运算符的使用可能会引起一些困惑。</p>
@@ -193,6 +163,36 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo多台电脑使用</title>
+    <url>/2020/07/21/hexoUse/</url>
+    <content><![CDATA[<h4 id="一、关于搭建的流程"><a href="#一、关于搭建的流程" class="headerlink" title="一、关于搭建的流程"></a>一、关于搭建的流程</h4><ol>
+<li>创建仓库，<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>；</li>
+<li>创建两个分支：master 与 hexo；</li>
+<li>设置hexo为默认分支（因为我们只需要手动管理这个分支上的Hexo网站文件）；</li>
+<li>使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库；</li>
+<li>在本地<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行npm install hexo、hexo init、npm install 和 npm install hexo-deployer-git（此时当前分支应显示为hexo）;</li>
+<li>修改_config.yml中的deploy参数，分支应为master；</li>
+<li>依次执行git add .、git commit -m “…”、git push origin hexo提交网站相关的文件；</li>
+<li>执行hexo g -d生成网站并部署到GitHub上。</li>
+</ol>
+<h4 id="二、关于日常的改动流程"><a href="#二、关于日常的改动流程" class="headerlink" title="二、关于日常的改动流程"></a>二、关于日常的改动流程</h4><ol>
+<li>依次执行git add .、git commit -m “…”、git push origin hexo指令将改动推送到GitHub（此时当前分支应为hexo）；</li>
+<li>然后才执行hexo g -d发布网站到master分支上。</li>
+</ol>
+<h4 id="三、本地资料丢失后的流程"><a href="#三、本地资料丢失后的流程" class="headerlink" title="三、本地资料丢失后的流程"></a>三、本地资料丢失后的流程</h4><ol>
+<li>使用git clone <a href="mailto:git@github.com">git@github.com</a>:CrazyMilk/CrazyMilk.github.io.git拷贝仓库（默认分支为hexo）；</li>
+<li>在本地新拷贝的<a href="https://link.zhihu.com/?target=http%3A//CrazyMilk.github.io">http://CrazyMilk.github.io</a>文件夹下通过Git bash依次执行下列指令：npm install hexo、npm install、npm install hexo-deployer-git（记得，不需要hexo init这条指令）。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>奇淫技巧</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>奇淫技巧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>栈</title>
     <url>/2020/07/22/js3/</url>
     <content><![CDATA[<h4 id="什么是栈"><a href="#什么是栈" class="headerlink" title="什么是栈"></a>什么是栈</h4><p>栈是一种遵从后进先出（LIFO）原则的有序集合。新添加的或待删除的元素都保存在栈的 末尾，称作栈顶，另一端就叫栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。 </p>
@@ -259,43 +259,6 @@
       </categories>
   </entry>
   <entry>
-    <title>测试#文章页面上的显示名称，一般是中文</title>
-    <url>/2020/07/19/my-first-blog/</url>
-    <content><![CDATA[<p>测试内容</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const test &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">	console.log(&#39;你好&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="一级"><a href="#一级" class="headerlink" title="一级"></a>一级</h1><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>[TOC]</p>
-<p><img src="G:\塔河大屏综合管理平台_slices\合并形状备份 2@2x.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>默认分类</category>
-      </categories>
-  </entry>
-  <entry>
     <title>康奈尔笔记法</title>
     <url>/2020/07/20/newType/</url>
     <content><![CDATA[<h3 id="学习，思维三部曲：WHAT、HOW、WHY"><a href="#学习，思维三部曲：WHAT、HOW、WHY" class="headerlink" title="学习，思维三部曲：WHAT、HOW、WHY"></a>学习，思维三部曲：WHAT、HOW、WHY</h3><h5 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h5><p>所谓的 「WHAT」 也就是 「What is it」?——这是最简单的层次。在这个层次，你要搞清楚某个东东是「什么」样子的？有「什么」用处？有「什么」特性？有「什么」语法？</p>
@@ -332,6 +295,43 @@
       <tags>
         <tag>学习方法</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>测试#文章页面上的显示名称，一般是中文</title>
+    <url>/2020/07/19/my-first-blog/</url>
+    <content><![CDATA[<p>测试内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const test &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">	console.log(&#39;你好&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="一级"><a href="#一级" class="headerlink" title="一级"></a>一级</h1><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>[TOC]</p>
+<p><img src="G:\塔河大屏综合管理平台_slices\合并形状备份 2@2x.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>默认分类</category>
+      </categories>
   </entry>
   <entry>
     <title>数组</title>

@@ -250,15 +250,6 @@
       </tags>
   </entry>
   <entry>
-    <title>模板</title>
-    <url>/2020/07/21/moban/</url>
-    <content><![CDATA[<p>#### </p>
-]]></content>
-      <categories>
-        <category>默认分类</category>
-      </categories>
-  </entry>
-  <entry>
     <title>测试#文章页面上的显示名称，一般是中文</title>
     <url>/2020/07/19/my-first-blog/</url>
     <content><![CDATA[<p>测试内容</p>
@@ -290,6 +281,15 @@
 </table>
 <p>[TOC]</p>
 <p><img src="G:\塔河大屏综合管理平台_slices\合并形状备份 2@2x.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>默认分类</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>模板</title>
+    <url>/2020/07/21/moban/</url>
+    <content><![CDATA[<p>#### </p>
 ]]></content>
       <categories>
         <category>默认分类</category>
@@ -331,6 +331,72 @@
       </categories>
       <tags>
         <tag>学习方法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>队列</title>
+    <url>/2020/07/22/js4/</url>
+    <content><![CDATA[<h4 id="什么是队列"><a href="#什么是队列" class="headerlink" title="什么是队列"></a>什么是队列</h4><p>我们已经学习了栈。队列和栈非常类似，但是使用了不同的原则，而非后进先出。你将在这 一章学习这些内容。 </p>
+<p>队列是遵循FIFO（First In First Out，先进先出，也称为先来先服务）原则的一组有序的项。 队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。 </p>
+<p>在现实中，最常见的队列的例子就是排队：</p>
+<p><img src="/images/js4-1.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js4-1.png" alt=""></p>
+<h4 id="创建队列"><a href="#创建队列" class="headerlink" title="创建队列"></a>创建队列</h4><p>先从最基本的声明类开始：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Queue() &#123;</span><br><span class="line"> &#x2F;&#x2F;这里是属性和方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来需要声明一些队列可用的方法。</p>
+<p>  enqueue(element(s))：向队列尾部添加一个（或多个）新的项。 </p>
+<p> dequeue()：移除队列的第一（即排在队列最前面的）项，并返回被移除的元素。 </p>
+<p> front()：返回队列中第一个元素——最先被添加，也将是最先被移除的元素。队列不 做任何变动（不移除元素，只返回元素信息——与Stack类的peek方法非常类似）。 </p>
+<p> isEmpty()：如果队列中不包含任何元素，返回true，否则返回false。  size()：返回队列包含的元素个数，与数组的length属性类似。</p>
+<p>首先要实现的是enqueue方法。这个方法负责向队列添加新元素。这里有一个非常重要的细 节，新的项只能添加到队列末尾：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.enqueue &#x3D; function(element)&#123;</span><br><span class="line"> items.push(element);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>接下来要实现dequeue方法。这个方法负责从队列移除项。由于队列遵循先进先出原则，最先 添加的项也是最先被移除的。可以用介绍过的JavaScript的array类的shift方法。如果你 不记得了，这里帮你回忆一下，shift方法会从数组中移除存储在索引0（第一个位置）的元素：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.dequeue &#x3D; function()&#123;</span><br><span class="line"> return items.shift();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>只有enqueue方法和dequeue方法可以添加和移除元素，这样就确保了Queue类遵循先进先 出原则。</p>
+<h5 id="完整的Queue类"><a href="#完整的Queue类" class="headerlink" title="完整的Queue类"></a>完整的Queue类</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Queue() &#123;</span><br><span class="line"> var items &#x3D; [];</span><br><span class="line"> &#x2F;&#x2F; 添加在末尾</span><br><span class="line"> this.enqueue &#x3D; function(element)&#123;</span><br><span class="line"> 	items.push(element);</span><br><span class="line"> &#125;;</span><br><span class="line"> &#x2F;&#x2F; 删除在头部</span><br><span class="line"> this.dequeue &#x3D; function()&#123;</span><br><span class="line"> 	return items.shift();</span><br><span class="line"> &#125;;</span><br><span class="line"> &#x2F;&#x2F; 返回第一个</span><br><span class="line"> this.front &#x3D; function()&#123;</span><br><span class="line"> 	return items[0];</span><br><span class="line"> &#125;;</span><br><span class="line"> this.isEmpty &#x3D; function()&#123;</span><br><span class="line"> 	return items.length &#x3D;&#x3D; 0;</span><br><span class="line"> &#125;;</span><br><span class="line"> this.clear &#x3D; function()&#123;</span><br><span class="line"> 	items &#x3D; [];</span><br><span class="line"> &#125;;</span><br><span class="line"> this.size &#x3D; function()&#123;</span><br><span class="line"> 	return items.length;</span><br><span class="line"> &#125;; </span><br><span class="line"> this.print &#x3D; function()&#123;</span><br><span class="line"> 	console.log(items.toString());</span><br><span class="line"> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下图展示了目前为止执行的所有入列操作，以及队列当前的状态</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">queue.print();</span><br><span class="line">console.log(queue.size()); &#x2F;&#x2F;输出3</span><br><span class="line">console.log(queue.isEmpty()); &#x2F;&#x2F;输出false</span><br><span class="line">queue.dequeue();</span><br><span class="line">queue.dequeue();</span><br><span class="line">queue.print();</span><br></pre></td></tr></table></figure>
+<p><img src="/images/js4-2.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js4-2.png" alt=""></p>
+<p>然后，出列两个元素（执行两次dequeue方法）。下图展示了dequeue方法的执行过程：</p>
+<p><img src="/images/js5-3.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js5-3.png" alt=""></p>
+<p>最后，再次打印队列内容时，就只剩Camila一个元素了。前两个入列的元素出列了，最后 入列的元素也将是最后出列的。也就是说，我们遵循了先进先出原则。</p>
+<h4 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h4><p>元素的添加和移除是基于优先级的。一个现实的例子就是机 场登机的顺序。头等舱和商务舱乘客的优先级要高于经济舱乘客。在有些国家，老年人和孕妇（或 带小孩的妇女）登机时也享有高于其他乘客的优先级。</p>
+<p>实现一个优先队列，有两种选项：</p>
+<p>设置优先级，然后在正确的位置添加元素；</p>
+<p>或者用入列操 作添加元素，然后按照优先级移除它们。</p>
+<p>在这个示例中，我们将会在正确的位置添加元素，因此 可以对它们使用默认的出列操作：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function PriorityQueue() &#123;</span><br><span class="line">	 var items &#x3D; [];</span><br><span class="line">	 function QueueElement (element, priority)&#123; &#x2F;&#x2F; &#123;1&#125;优先级类</span><br><span class="line">		 this.element &#x3D; element;</span><br><span class="line">		 this.priority &#x3D; priority;</span><br><span class="line">	 &#125;</span><br><span class="line">	 this.enqueue &#x3D; function(element, priority)&#123; &#x2F;&#x2F; 根据优先级来插入而不是简单的push</span><br><span class="line">		 var queueElement &#x3D; new QueueElement(element, priority);</span><br><span class="line">		 if (this.isEmpty())&#123; &#x2F;&#x2F; 如果数组是空的不需要比较优先级直接push</span><br><span class="line">			items.push(queueElement); &#x2F;&#x2F; &#123;2&#125;</span><br><span class="line">		 &#125; else &#123;</span><br><span class="line">			var added &#x3D; false; &#x2F;&#x2F; 根据这个值判断当前优先级是否比列表最大优先级还大</span><br><span class="line">			for (var i&#x3D;0; i&lt;items.length; i++)&#123;</span><br><span class="line">				 if (queueElement.priority &lt; items[i].priority)&#123;&#x2F;&#x2F; 当前优先级和列表每一个对比</span><br><span class="line">					 items.splice(i,0,queueElement); &#x2F;&#x2F; &#123;3&#125;插入小于item优先级的前一项</span><br><span class="line">					 added &#x3D; true;</span><br><span class="line">					 break; &#x2F;&#x2F; &#123;4&#125; </span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			if (!added)&#123; &#x2F;&#x2F;&#123;5&#125; 比最大优先级还大直接push</span><br><span class="line">				items.push(queueElement);</span><br><span class="line">			&#125;</span><br><span class="line">		 &#125;</span><br><span class="line">	 &#125;;</span><br><span class="line">	&#x2F;&#x2F;其他方法和默认的Queue实现相同</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    默认的Queue类和PriorityQueue类实现上的区别是，要向PriorityQueue添加元素，需 要创建一个特殊的元素（行{1}）。这个元素包含了要添加到队列的元素（它可以是任意类型） 及其在队列中的优先级。</p>
+<p>​    如果队列为空，可以直接将元素入列（行{2}）。否则，就需要比较该元素与其他元素的优 先级。当找到一个比要添加的元素的priority值更大（优先级更低）的项时，就把新元素插入 到它之前（根据这个逻辑，对于其他优先级相同，但是先添加到队列的元素，我们同样遵循先进 先出的原则）。要做到这一点，我们可以用JavaScript的array类的splice方法。 一旦找到priority值更大的元素，就插入新元素（行{3}）并终止队列循环（行{4}）。这样， 队列也就根据优先级排序了。</p>
+<p>如果要添加元素的priority值大于任何已有的元素，把它添加到队列的末尾就行了（行 {5}）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var priorityQueue &#x3D; new PriorityQueue();</span><br><span class="line">priorityQueue.enqueue(&quot;John&quot;, 2);</span><br><span class="line">priorityQueue.enqueue(&quot;Jack&quot;, 1);</span><br><span class="line">priorityQueue.enqueue(&quot;Camila&quot;, 1);</span><br><span class="line">priorityQueue.print();</span><br></pre></td></tr></table></figure>
+<p>以上代码是一个使用PriorityQueue类的示例。在下图中可以看到每条命令的结果（以上 代码的结果）：</p>
+<p><img src="/images/js5-1.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js5-1.png" alt=""></p>
+<p>我们在这里实现的优先队列称为最小优先队列，因为优先级的值较小的元素被放置在队列最 前面（1代表更高的优先级）。最大优先队列则与之相反，把优先级的值较大的元素放置在队列最 前面。</p>
+<h4 id="循环队列——击鼓传花"><a href="#循环队列——击鼓传花" class="headerlink" title="循环队列——击鼓传花"></a>循环队列——击鼓传花</h4><p>还有另一个修改版的队列实现，就是循环队列。循环队列的一个例子就是击鼓传花游戏（Hot Potato）。在这个游戏中，孩子们围成一个圆圈，把花尽快地传递给旁边的人。某一时刻传花停止， 这个时候花在谁手里，谁就退出圆圈结束游戏。重复这个过程，直到只剩一个孩子（胜者）。</p>
+<p>在下面这个示例中，我们要实现一个模拟的击鼓传花游戏：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function hotPotato (nameList, num)&#123;</span><br><span class="line"> var queue &#x3D; new Queue(); &#x2F;&#x2F; &#123;1&#125;</span><br><span class="line"> for (var i&#x3D;0; i&lt;nameList.length; i++)&#123;</span><br><span class="line"> 	queue.enqueue(nameList[i]); &#x2F;&#x2F; &#123;2&#125; 将list全部添加到队列中</span><br><span class="line"> &#125;</span><br><span class="line"> var eliminated &#x3D; &#39;&#39;;</span><br><span class="line"> while (queue.size() &gt; 1)&#123;</span><br><span class="line">     for (var i&#x3D;0; i&lt;num; i++)&#123;</span><br><span class="line">     	queue.enqueue(queue.dequeue()); &#x2F;&#x2F; &#123;3&#125; 删除队列的第一个然后再添加到最后</span><br><span class="line"> 	 &#125;</span><br><span class="line">     eliminated &#x3D; queue.dequeue();&#x2F;&#x2F; &#123;4&#125;删除并取出循环结束后的队列的第一个值</span><br><span class="line">     console.log(eliminated + &#39;在击鼓传花游戏中被淘汰。&#39;);</span><br><span class="line"> &#125;</span><br><span class="line"> return queue.dequeue();&#x2F;&#x2F; &#123;5&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var names &#x3D; [&#39;John&#39;,&#39;Jack&#39;,&#39;Camila&#39;,&#39;Ingrid&#39;,&#39;Carl&#39;];</span><br><span class="line">var winner &#x3D; hotPotato(names, 7);</span><br><span class="line">console.log(&#39;胜利者：&#39; + winner);</span><br></pre></td></tr></table></figure>
+<p>实现一个模拟的击鼓传花游戏，要用到这一章开头实现的Queue类（行{1}）。我们会得到一 份名单，把里面的名字全都加入队列（行{2}）。给定一个数字，然后迭代队列。从队列开头移 除一项，再将其添加到队列末尾（行{3}），模拟击鼓传花（如果你把花传给了旁边的人，你被 淘汰的威胁立刻就解除了）。一旦传递次数达到给定的数字，拿着花的那个人就被淘汰了（从队 列中移除——行{4}）。最后只剩下一个人的时候，这个人就是胜者（行{5}）。</p>
+<p>以上算法的输出如下：</p>
+<p> Camila在击鼓传花游戏中被淘汰。</p>
+<p> Jack在击鼓传花游戏中被淘汰。</p>
+<p> Carl在击鼓传花游戏中被淘汰。</p>
+<p> Ingrid在击鼓传花游戏中被淘汰。</p>
+<p> 胜利者：John </p>
+<p>下图模拟了这个输出过程：</p>
+<p><img src="/images/js5-2.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js5-2.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>学习JavaScript数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>数据结构与算法</tag>
+        <tag>学习JavaScript数据结构与算法</tag>
       </tags>
   </entry>
   <entry>
@@ -549,61 +615,41 @@
       </tags>
   </entry>
   <entry>
-    <title>队列</title>
-    <url>/2020/07/22/js4/</url>
-    <content><![CDATA[<h4 id="什么是队列"><a href="#什么是队列" class="headerlink" title="什么是队列"></a>什么是队列</h4><p>我们已经学习了栈。队列和栈非常类似，但是使用了不同的原则，而非后进先出。你将在这 一章学习这些内容。 </p>
-<p>队列是遵循FIFO（First In First Out，先进先出，也称为先来先服务）原则的一组有序的项。 队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。 </p>
-<p>在现实中，最常见的队列的例子就是排队：</p>
-<p><img src="/images/js4-1.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js4-1.png" alt=""></p>
-<h4 id="创建队列"><a href="#创建队列" class="headerlink" title="创建队列"></a>创建队列</h4><p>先从最基本的声明类开始：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Queue() &#123;</span><br><span class="line"> &#x2F;&#x2F;这里是属性和方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接下来需要声明一些队列可用的方法。</p>
-<p>  enqueue(element(s))：向队列尾部添加一个（或多个）新的项。 </p>
-<p> dequeue()：移除队列的第一（即排在队列最前面的）项，并返回被移除的元素。 </p>
-<p> front()：返回队列中第一个元素——最先被添加，也将是最先被移除的元素。队列不 做任何变动（不移除元素，只返回元素信息——与Stack类的peek方法非常类似）。 </p>
-<p> isEmpty()：如果队列中不包含任何元素，返回true，否则返回false。  size()：返回队列包含的元素个数，与数组的length属性类似。</p>
-<p>首先要实现的是enqueue方法。这个方法负责向队列添加新元素。这里有一个非常重要的细 节，新的项只能添加到队列末尾：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.enqueue &#x3D; function(element)&#123;</span><br><span class="line"> items.push(element);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>接下来要实现dequeue方法。这个方法负责从队列移除项。由于队列遵循先进先出原则，最先 添加的项也是最先被移除的。可以用介绍过的JavaScript的array类的shift方法。如果你 不记得了，这里帮你回忆一下，shift方法会从数组中移除存储在索引0（第一个位置）的元素：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.dequeue &#x3D; function()&#123;</span><br><span class="line"> return items.shift();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>只有enqueue方法和dequeue方法可以添加和移除元素，这样就确保了Queue类遵循先进先 出原则。</p>
-<h5 id="完整的Queue类"><a href="#完整的Queue类" class="headerlink" title="完整的Queue类"></a>完整的Queue类</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Queue() &#123;</span><br><span class="line"> var items &#x3D; [];</span><br><span class="line"> &#x2F;&#x2F; 添加在末尾</span><br><span class="line"> this.enqueue &#x3D; function(element)&#123;</span><br><span class="line"> 	items.push(element);</span><br><span class="line"> &#125;;</span><br><span class="line"> &#x2F;&#x2F; 删除在头部</span><br><span class="line"> this.dequeue &#x3D; function()&#123;</span><br><span class="line"> 	return items.shift();</span><br><span class="line"> &#125;;</span><br><span class="line"> &#x2F;&#x2F; 返回第一个</span><br><span class="line"> this.front &#x3D; function()&#123;</span><br><span class="line"> 	return items[0];</span><br><span class="line"> &#125;;</span><br><span class="line"> this.isEmpty &#x3D; function()&#123;</span><br><span class="line"> 	return items.length &#x3D;&#x3D; 0;</span><br><span class="line"> &#125;;</span><br><span class="line"> this.clear &#x3D; function()&#123;</span><br><span class="line"> 	items &#x3D; [];</span><br><span class="line"> &#125;;</span><br><span class="line"> this.size &#x3D; function()&#123;</span><br><span class="line"> 	return items.length;</span><br><span class="line"> &#125;; </span><br><span class="line"> this.print &#x3D; function()&#123;</span><br><span class="line"> 	console.log(items.toString());</span><br><span class="line"> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下图展示了目前为止执行的所有入列操作，以及队列当前的状态</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">queue.print();</span><br><span class="line">console.log(queue.size()); &#x2F;&#x2F;输出3</span><br><span class="line">console.log(queue.isEmpty()); &#x2F;&#x2F;输出false</span><br><span class="line">queue.dequeue();</span><br><span class="line">queue.dequeue();</span><br><span class="line">queue.print();</span><br></pre></td></tr></table></figure>
-<p><img src="/images/js4-2.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js4-2.png" alt=""></p>
-<p>然后，出列两个元素（执行两次dequeue方法）。下图展示了dequeue方法的执行过程：</p>
-<p><img src="/images/js5-3.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js5-3.png" alt=""></p>
-<p>最后，再次打印队列内容时，就只剩Camila一个元素了。前两个入列的元素出列了，最后 入列的元素也将是最后出列的。也就是说，我们遵循了先进先出原则。</p>
-<h4 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h4><p>元素的添加和移除是基于优先级的。一个现实的例子就是机 场登机的顺序。头等舱和商务舱乘客的优先级要高于经济舱乘客。在有些国家，老年人和孕妇（或 带小孩的妇女）登机时也享有高于其他乘客的优先级。</p>
-<p>实现一个优先队列，有两种选项：</p>
-<p>设置优先级，然后在正确的位置添加元素；</p>
-<p>或者用入列操 作添加元素，然后按照优先级移除它们。</p>
-<p>在这个示例中，我们将会在正确的位置添加元素，因此 可以对它们使用默认的出列操作：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function PriorityQueue() &#123;</span><br><span class="line">	 var items &#x3D; [];</span><br><span class="line">	 function QueueElement (element, priority)&#123; &#x2F;&#x2F; &#123;1&#125;优先级类</span><br><span class="line">		 this.element &#x3D; element;</span><br><span class="line">		 this.priority &#x3D; priority;</span><br><span class="line">	 &#125;</span><br><span class="line">	 this.enqueue &#x3D; function(element, priority)&#123; &#x2F;&#x2F; 根据优先级来插入而不是简单的push</span><br><span class="line">		 var queueElement &#x3D; new QueueElement(element, priority);</span><br><span class="line">		 if (this.isEmpty())&#123; &#x2F;&#x2F; 如果数组是空的不需要比较优先级直接push</span><br><span class="line">			items.push(queueElement); &#x2F;&#x2F; &#123;2&#125;</span><br><span class="line">		 &#125; else &#123;</span><br><span class="line">			var added &#x3D; false; &#x2F;&#x2F; 根据这个值判断当前优先级是否比列表最大优先级还大</span><br><span class="line">			for (var i&#x3D;0; i&lt;items.length; i++)&#123;</span><br><span class="line">				 if (queueElement.priority &lt; items[i].priority)&#123;&#x2F;&#x2F; 当前优先级和列表每一个对比</span><br><span class="line">					 items.splice(i,0,queueElement); &#x2F;&#x2F; &#123;3&#125;插入小于item优先级的前一项</span><br><span class="line">					 added &#x3D; true;</span><br><span class="line">					 break; &#x2F;&#x2F; &#123;4&#125; </span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			if (!added)&#123; &#x2F;&#x2F;&#123;5&#125; 比最大优先级还大直接push</span><br><span class="line">				items.push(queueElement);</span><br><span class="line">			&#125;</span><br><span class="line">		 &#125;</span><br><span class="line">	 &#125;;</span><br><span class="line">	&#x2F;&#x2F;其他方法和默认的Queue实现相同</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​    默认的Queue类和PriorityQueue类实现上的区别是，要向PriorityQueue添加元素，需 要创建一个特殊的元素（行{1}）。这个元素包含了要添加到队列的元素（它可以是任意类型） 及其在队列中的优先级。</p>
-<p>​    如果队列为空，可以直接将元素入列（行{2}）。否则，就需要比较该元素与其他元素的优 先级。当找到一个比要添加的元素的priority值更大（优先级更低）的项时，就把新元素插入 到它之前（根据这个逻辑，对于其他优先级相同，但是先添加到队列的元素，我们同样遵循先进 先出的原则）。要做到这一点，我们可以用JavaScript的array类的splice方法。 一旦找到priority值更大的元素，就插入新元素（行{3}）并终止队列循环（行{4}）。这样， 队列也就根据优先级排序了。</p>
-<p>如果要添加元素的priority值大于任何已有的元素，把它添加到队列的末尾就行了（行 {5}）：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var priorityQueue &#x3D; new PriorityQueue();</span><br><span class="line">priorityQueue.enqueue(&quot;John&quot;, 2);</span><br><span class="line">priorityQueue.enqueue(&quot;Jack&quot;, 1);</span><br><span class="line">priorityQueue.enqueue(&quot;Camila&quot;, 1);</span><br><span class="line">priorityQueue.print();</span><br></pre></td></tr></table></figure>
-<p>以上代码是一个使用PriorityQueue类的示例。在下图中可以看到每条命令的结果（以上 代码的结果）：</p>
-<p><img src="/images/js5-1.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js5-1.png" alt=""></p>
-<p>我们在这里实现的优先队列称为最小优先队列，因为优先级的值较小的元素被放置在队列最 前面（1代表更高的优先级）。最大优先队列则与之相反，把优先级的值较大的元素放置在队列最 前面。</p>
-<h4 id="循环队列——击鼓传花"><a href="#循环队列——击鼓传花" class="headerlink" title="循环队列——击鼓传花"></a>循环队列——击鼓传花</h4><p>还有另一个修改版的队列实现，就是循环队列。循环队列的一个例子就是击鼓传花游戏（Hot Potato）。在这个游戏中，孩子们围成一个圆圈，把花尽快地传递给旁边的人。某一时刻传花停止， 这个时候花在谁手里，谁就退出圆圈结束游戏。重复这个过程，直到只剩一个孩子（胜者）。</p>
-<p>在下面这个示例中，我们要实现一个模拟的击鼓传花游戏：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function hotPotato (nameList, num)&#123;</span><br><span class="line"> var queue &#x3D; new Queue(); &#x2F;&#x2F; &#123;1&#125;</span><br><span class="line"> for (var i&#x3D;0; i&lt;nameList.length; i++)&#123;</span><br><span class="line"> 	queue.enqueue(nameList[i]); &#x2F;&#x2F; &#123;2&#125; 将list全部添加到队列中</span><br><span class="line"> &#125;</span><br><span class="line"> var eliminated &#x3D; &#39;&#39;;</span><br><span class="line"> while (queue.size() &gt; 1)&#123;</span><br><span class="line">     for (var i&#x3D;0; i&lt;num; i++)&#123;</span><br><span class="line">     	queue.enqueue(queue.dequeue()); &#x2F;&#x2F; &#123;3&#125; 删除队列的第一个然后再添加到最后</span><br><span class="line"> 	 &#125;</span><br><span class="line">     eliminated &#x3D; queue.dequeue();&#x2F;&#x2F; &#123;4&#125;删除并取出循环结束后的队列的第一个值</span><br><span class="line">     console.log(eliminated + &#39;在击鼓传花游戏中被淘汰。&#39;);</span><br><span class="line"> &#125;</span><br><span class="line"> return queue.dequeue();&#x2F;&#x2F; &#123;5&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var names &#x3D; [&#39;John&#39;,&#39;Jack&#39;,&#39;Camila&#39;,&#39;Ingrid&#39;,&#39;Carl&#39;];</span><br><span class="line">var winner &#x3D; hotPotato(names, 7);</span><br><span class="line">console.log(&#39;胜利者：&#39; + winner);</span><br></pre></td></tr></table></figure>
-<p>实现一个模拟的击鼓传花游戏，要用到这一章开头实现的Queue类（行{1}）。我们会得到一 份名单，把里面的名字全都加入队列（行{2}）。给定一个数字，然后迭代队列。从队列开头移 除一项，再将其添加到队列末尾（行{3}），模拟击鼓传花（如果你把花传给了旁边的人，你被 淘汰的威胁立刻就解除了）。一旦传递次数达到给定的数字，拿着花的那个人就被淘汰了（从队 列中移除——行{4}）。最后只剩下一个人的时候，这个人就是胜者（行{5}）。</p>
-<p>以上算法的输出如下：</p>
-<p> Camila在击鼓传花游戏中被淘汰。</p>
-<p> Jack在击鼓传花游戏中被淘汰。</p>
-<p> Carl在击鼓传花游戏中被淘汰。</p>
-<p> Ingrid在击鼓传花游戏中被淘汰。</p>
-<p> 胜利者：John </p>
-<p>下图模拟了这个输出过程：</p>
-<p><img src="/images/js5-2.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js5-2.png" alt=""></p>
+    <title>双向链表</title>
+    <url>/2020/07/27/js6/</url>
+    <content><![CDATA[<h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><p>​        链表有多种不同的类型，这一节介绍双向链表。双向链表和普通链表的区别在于，在链表中， 一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素， 另一个链向前一个元素，如下图所示： </p>
+<p><img src="/images/js6-1.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-1.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DoublyLinkedList</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> Node = <span class="function"><span class="keyword">function</span>(<span class="params">element</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">this</span>.element = element;</span><br><span class="line">        <span class="keyword">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.prev = <span class="literal">null</span>; <span class="comment">//新增的</span></span><br><span class="line">    &#125;; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> length = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> head = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">var</span> tail = <span class="literal">null</span>; <span class="comment">//新增的 </span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">//这里是方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        在代码中可以看到，LinkedList类和DoublyLinkedList类之间的区别标为新增的。在 Node类里有prev属性（一个新指针），在DoublyLinkedList类里也有用来保存对列表最后一 项的引用的tail属性</p>
+<p>​        双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节 点的下一个或前一个元素。在单向链表中，如果迭代列表时错过了要找的元素，就需要回到列表 起点，重新开始迭代。这是双向链表的一个优点</p>
+<h5 id="在任意位置插入一个新元素"><a href="#在任意位置插入一个新元素" class="headerlink" title="在任意位置插入一个新元素"></a>在任意位置插入一个新元素</h5><p>​        向双向链表中插入一个新项跟（单向）链表非常类似。区别在于，链表只要控制一个next 指针，而双向链表则要同时控制next和prev（previous，前一个）这两个指针。 </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">position, element</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//检查越界值</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt;= <span class="number">0</span> &amp;&amp; position &lt;= length)&#123; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> node = <span class="keyword">new</span> Node(element),</span><br><span class="line">            current = head,</span><br><span class="line">            previous,</span><br><span class="line">            index = <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (position === <span class="number">0</span>)&#123; <span class="comment">//在第一个位置添加 </span></span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (!head)&#123; <span class="comment">//新增的 &#123;1&#125;</span></span><br><span class="line">                head = node;</span><br><span class="line">                tail = node;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                node.next = current;</span><br><span class="line">                current.prev = node; <span class="comment">//新增的 &#123;2&#125;</span></span><br><span class="line">                head = node;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span>  <span class="keyword">if</span> (position === length) &#123; <span class="comment">//最后一项 //新增的 </span></span><br><span class="line"> </span><br><span class="line">            current = tail; <span class="comment">// &#123;3&#125;</span></span><br><span class="line">            current.next = node;</span><br><span class="line">            node.prev = current; </span><br><span class="line">            tail = node; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (index++ &lt; position)&#123; <span class="comment">//&#123;4&#125;</span></span><br><span class="line">                previous = current;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125;</span><br><span class="line">            node.next = current; <span class="comment">//&#123;5&#125;</span></span><br><span class="line">            previous.next = node; </span><br><span class="line"> </span><br><span class="line">            current.prev = node; <span class="comment">//新增的</span></span><br><span class="line">            node.prev = previous; <span class="comment">//新增的</span></span><br><span class="line">        &#125; </span><br><span class="line"> </span><br><span class="line">        length++; <span class="comment">//更新列表的长度 </span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>; </span><br><span class="line"> </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>​        我们来分析第一种场景：在列表的第一个位置（列表的起点）插入一个新元素。如果列表为 空（行{1}），只需要把head和tail都指向这个新节点。如果不为空，current变量将是对列表 中第一个元素的引用。就像我们在链表中所做的，把node.next设为current，而head将指向 node（它将成为列表中的第一个元素）。不同之处在于，我们还需要为指向上一个元素的指针设 一个值。current.prev指针将由指向null变为指向新元素（node——行{2}）。node.prev指 针已经是null，因此不需要再更新任何东西</p>
+<p>下图演示了这个过程： </p>
+<p><img src="/images/js6-2.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-2.png" alt=""></p>
+<p>​        现在来分析一下，假如我们要在列表最后添加一个新元素。这是一个特殊情况，因为我们还 控制着指向最后一个元素的指针（tail）。current变量将引用最后一个元素（行{3}）。然后开 始建立第一个链接：node.prev将引用current。current.next指针（指向null）将指向node （由于构造函数，node.next已经指向了null）。然后只剩一件事了，就是更新tail，它将由指 向current变为指向node。</p>
+<p>下图展示了这些行为： </p>
+<p><img src="/images/js6-3.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-3.png" alt=""></p>
+<p>然后还有第三种场景：在列表中间插入一个新元素。就像我们在之前的方法中所做的，迭代 列表，直到到达要找的位置（行{4}）。我们将在current和previous元素之间插入新元素。首 先，node.next将指向current（行{5}），而previous.next将指向node，这样就不会丢失节 点之间的链接。然后需要处理所有的链接：current.prev将指向node，而node.prev将指向 previous。</p>
+<p>下图展示了这一过程： </p>
+<p><img src="/images/js6-4.png" alt=""></p>
+<p> <img src="E:\1244832273.github.io\themes\next\source\images\js6-4.png" alt=""></p>
+<p><code>我们可以对insert和remove这两个方法的实现做一些改进。在结果为否的 情况下，我们可以把元素插入到列表的尾部。性能也可以有所改进，比如，如果 position大于length/2，就最好从尾部开始迭代，而不是从头开始（这样就 能迭代更少列表中的元素）。</code> </p>
+<h5 id="从任意位置移除元素"><a href="#从任意位置移除元素" class="headerlink" title="从任意位置移除元素"></a>从任意位置移除元素</h5><p>​        从双向链表中移除元素跟链表非常类似。唯一的区别就是还需要设置前一个位置的指针。我 们来看一下它的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.removeAt = <span class="function"><span class="keyword">function</span>(<span class="params">position</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//检查越界值</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt; <span class="number">-1</span> &amp;&amp; position &lt; length)&#123;</span><br><span class="line">    	<span class="keyword">var</span> current = head, </span><br><span class="line">    	 previous,</span><br><span class="line">         index = <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">        <span class="comment">//移除第一项</span></span><br><span class="line">        <span class="keyword">if</span> (position === <span class="number">0</span>)&#123; </span><br><span class="line"> </span><br><span class="line">            head = current.next; <span class="comment">// &#123;1&#125; </span></span><br><span class="line"> </span><br><span class="line">            <span class="comment">//如果只有一项，更新tail //新增的</span></span><br><span class="line">            <span class="keyword">if</span> (length === <span class="number">1</span>)&#123; <span class="comment">// &#123;2&#125;</span></span><br><span class="line">            	tail = <span class="literal">null</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           	 head.prev = <span class="literal">null</span>; <span class="comment">// &#123;3&#125;</span></span><br><span class="line">            &#125; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position === length<span class="number">-1</span>)&#123; <span class="comment">//最后一项 //新增的 </span></span><br><span class="line"> </span><br><span class="line">            current = tail; <span class="comment">// &#123;4&#125;</span></span><br><span class="line">            tail = current.prev;</span><br><span class="line">            tail.next = <span class="literal">null</span>; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line"> </span><br><span class="line">            <span class="keyword">while</span> (index++ &lt; position)&#123; <span class="comment">// &#123;5&#125; </span></span><br><span class="line"> </span><br><span class="line">                previous = current;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125; </span><br><span class="line"> </span><br><span class="line">            <span class="comment">//将previous与current的下一项链接起来——跳过current</span></span><br><span class="line">            previous.next = current.next; <span class="comment">// &#123;6&#125;</span></span><br><span class="line">            current.next.prev = previous; <span class="comment">//新增的</span></span><br><span class="line">        &#125; </span><br><span class="line"> </span><br><span class="line">        length--; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> current.element; </span><br><span class="line"> </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>​        我们需要处理三种场景：从头部、从中间和从尾部移除一个元素</p>
+<p>​        我们来看看如何移除第一个元素。current变量是对列表中第一个元素的引用，也就是我 们想移除的元素。需要做的就是改变head的引用，将其从current改为下一个元素 （current.next——行{1}）。但我们还需要更新current.next指向上一个元素的指针（因为 第一个元素的prev指针是null）。因此，把head.prev的引用改为null（行{3}——因为head 也指向列表中新的第一个元素，或者也可以用current.next.prev）。由于还需要控制tail 的引用，我们可以检查要移除的元素是否是第一个元素，如果是，只需要把tail也设为null（行{2}）。 </p>
+<p><img src="/images/js6-6.png" alt=""></p>
+<pre><code>下一种场景是从最后一个位置移除元素。既然已经有了对最后一个元素的引用（tail），我 们就不需要为找到它而迭代列表。这样我们也就可以把tail的引用赋给current变量（行{4}）。 接下来，需要把tail的引用更新为列表中倒数第二个元素（current.prev，或者tail.prev 也可以）。既然tail指向了倒数第二个元素，我们就只需要把next指针更新为null（tail.next = null）。
+</code></pre><p>下图演示了这一行为： </p>
+<p><img src="/images/js6-7.png" alt=""></p>
+<p>​        第三种也是最后一种场景：从列表中间移除一个元素。首先需要迭代列表，直到到达要找的 位置（行{5}）。current变量所引用的就是要移除的元素。那么要移除它，我们可以通过更新 previous.next和current.next.prev的引用，在列表中跳过它。因此，previous.next将 指向current.next，而current.next.prev将指向previous，</p>
+<p>如下图所示</p>
+<p><img src="/images/js6-8.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-8.png" alt=""></p>
 ]]></content>
       <categories>
         <category>学习JavaScript数据结构与算法</category>
@@ -678,52 +724,6 @@
 <p><img src="/images/js5-13.png" alt=""></p>
 <p><img src="E:\1244832273.github.io\themes\next\source\images\js5-13.png" alt=""></p>
 <p>​        在这种情况下，我们试图将新的项（node）插入到previous和current元素之间。首先， 我们需要把node.next的值指向current。然后把previous.next的值设为node。这样列表中 就有了一个新的项。 </p>
-]]></content>
-      <categories>
-        <category>学习JavaScript数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>数据结构与算法</tag>
-        <tag>学习JavaScript数据结构与算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>双向链表</title>
-    <url>/2020/07/27/js6/</url>
-    <content><![CDATA[<h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><p>​        链表有多种不同的类型，这一节介绍双向链表。双向链表和普通链表的区别在于，在链表中， 一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素， 另一个链向前一个元素，如下图所示： </p>
-<p><img src="/images/js6-1.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-1.png" alt=""></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DoublyLinkedList</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> Node = <span class="function"><span class="keyword">function</span>(<span class="params">element</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">this</span>.element = element;</span><br><span class="line">        <span class="keyword">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.prev = <span class="literal">null</span>; <span class="comment">//新增的</span></span><br><span class="line">    &#125;; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> length = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> head = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">var</span> tail = <span class="literal">null</span>; <span class="comment">//新增的 </span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">//这里是方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​        在代码中可以看到，LinkedList类和DoublyLinkedList类之间的区别标为新增的。在 Node类里有prev属性（一个新指针），在DoublyLinkedList类里也有用来保存对列表最后一 项的引用的tail属性</p>
-<p>​        双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节 点的下一个或前一个元素。在单向链表中，如果迭代列表时错过了要找的元素，就需要回到列表 起点，重新开始迭代。这是双向链表的一个优点</p>
-<h5 id="在任意位置插入一个新元素"><a href="#在任意位置插入一个新元素" class="headerlink" title="在任意位置插入一个新元素"></a>在任意位置插入一个新元素</h5><p>​        向双向链表中插入一个新项跟（单向）链表非常类似。区别在于，链表只要控制一个next 指针，而双向链表则要同时控制next和prev（previous，前一个）这两个指针。 </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">position, element</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//检查越界值</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt;= <span class="number">0</span> &amp;&amp; position &lt;= length)&#123; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> node = <span class="keyword">new</span> Node(element),</span><br><span class="line">            current = head,</span><br><span class="line">            previous,</span><br><span class="line">            index = <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (position === <span class="number">0</span>)&#123; <span class="comment">//在第一个位置添加 </span></span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (!head)&#123; <span class="comment">//新增的 &#123;1&#125;</span></span><br><span class="line">                head = node;</span><br><span class="line">                tail = node;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                node.next = current;</span><br><span class="line">                current.prev = node; <span class="comment">//新增的 &#123;2&#125;</span></span><br><span class="line">                head = node;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span>  <span class="keyword">if</span> (position === length) &#123; <span class="comment">//最后一项 //新增的 </span></span><br><span class="line"> </span><br><span class="line">            current = tail; <span class="comment">// &#123;3&#125;</span></span><br><span class="line">            current.next = node;</span><br><span class="line">            node.prev = current; </span><br><span class="line">            tail = node; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (index++ &lt; position)&#123; <span class="comment">//&#123;4&#125;</span></span><br><span class="line">                previous = current;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125;</span><br><span class="line">            node.next = current; <span class="comment">//&#123;5&#125;</span></span><br><span class="line">            previous.next = node; </span><br><span class="line"> </span><br><span class="line">            current.prev = node; <span class="comment">//新增的</span></span><br><span class="line">            node.prev = previous; <span class="comment">//新增的</span></span><br><span class="line">        &#125; </span><br><span class="line"> </span><br><span class="line">        length++; <span class="comment">//更新列表的长度 </span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>; </span><br><span class="line"> </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>​        我们来分析第一种场景：在列表的第一个位置（列表的起点）插入一个新元素。如果列表为 空（行{1}），只需要把head和tail都指向这个新节点。如果不为空，current变量将是对列表 中第一个元素的引用。就像我们在链表中所做的，把node.next设为current，而head将指向 node（它将成为列表中的第一个元素）。不同之处在于，我们还需要为指向上一个元素的指针设 一个值。current.prev指针将由指向null变为指向新元素（node——行{2}）。node.prev指 针已经是null，因此不需要再更新任何东西</p>
-<p>下图演示了这个过程： </p>
-<p><img src="/images/js6-2.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-2.png" alt=""></p>
-<p>​        现在来分析一下，假如我们要在列表最后添加一个新元素。这是一个特殊情况，因为我们还 控制着指向最后一个元素的指针（tail）。current变量将引用最后一个元素（行{3}）。然后开 始建立第一个链接：node.prev将引用current。current.next指针（指向null）将指向node （由于构造函数，node.next已经指向了null）。然后只剩一件事了，就是更新tail，它将由指 向current变为指向node。</p>
-<p>下图展示了这些行为： </p>
-<p><img src="/images/js6-3.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-3.png" alt=""></p>
-<p>然后还有第三种场景：在列表中间插入一个新元素。就像我们在之前的方法中所做的，迭代 列表，直到到达要找的位置（行{4}）。我们将在current和previous元素之间插入新元素。首 先，node.next将指向current（行{5}），而previous.next将指向node，这样就不会丢失节 点之间的链接。然后需要处理所有的链接：current.prev将指向node，而node.prev将指向 previous。</p>
-<p>下图展示了这一过程： </p>
-<p><img src="/images/js6-4.png" alt=""></p>
-<p> <img src="E:\1244832273.github.io\themes\next\source\images\js6-4.png" alt=""></p>
-<p><code>我们可以对insert和remove这两个方法的实现做一些改进。在结果为否的 情况下，我们可以把元素插入到列表的尾部。性能也可以有所改进，比如，如果 position大于length/2，就最好从尾部开始迭代，而不是从头开始（这样就 能迭代更少列表中的元素）。</code> </p>
-<h5 id="从任意位置移除元素"><a href="#从任意位置移除元素" class="headerlink" title="从任意位置移除元素"></a>从任意位置移除元素</h5><p>​        从双向链表中移除元素跟链表非常类似。唯一的区别就是还需要设置前一个位置的指针。我 们来看一下它的实现：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.removeAt = <span class="function"><span class="keyword">function</span>(<span class="params">position</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//检查越界值</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt; <span class="number">-1</span> &amp;&amp; position &lt; length)&#123;</span><br><span class="line">    	<span class="keyword">var</span> current = head, </span><br><span class="line">    	 previous,</span><br><span class="line">         index = <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">        <span class="comment">//移除第一项</span></span><br><span class="line">        <span class="keyword">if</span> (position === <span class="number">0</span>)&#123; </span><br><span class="line"> </span><br><span class="line">            head = current.next; <span class="comment">// &#123;1&#125; </span></span><br><span class="line"> </span><br><span class="line">            <span class="comment">//如果只有一项，更新tail //新增的</span></span><br><span class="line">            <span class="keyword">if</span> (length === <span class="number">1</span>)&#123; <span class="comment">// &#123;2&#125;</span></span><br><span class="line">            	tail = <span class="literal">null</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           	 head.prev = <span class="literal">null</span>; <span class="comment">// &#123;3&#125;</span></span><br><span class="line">            &#125; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position === length<span class="number">-1</span>)&#123; <span class="comment">//最后一项 //新增的 </span></span><br><span class="line"> </span><br><span class="line">            current = tail; <span class="comment">// &#123;4&#125;</span></span><br><span class="line">            tail = current.prev;</span><br><span class="line">            tail.next = <span class="literal">null</span>; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line"> </span><br><span class="line">            <span class="keyword">while</span> (index++ &lt; position)&#123; <span class="comment">// &#123;5&#125; </span></span><br><span class="line"> </span><br><span class="line">                previous = current;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125; </span><br><span class="line"> </span><br><span class="line">            <span class="comment">//将previous与current的下一项链接起来——跳过current</span></span><br><span class="line">            previous.next = current.next; <span class="comment">// &#123;6&#125;</span></span><br><span class="line">            current.next.prev = previous; <span class="comment">//新增的</span></span><br><span class="line">        &#125; </span><br><span class="line"> </span><br><span class="line">        length--; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> current.element; </span><br><span class="line"> </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>​        我们需要处理三种场景：从头部、从中间和从尾部移除一个元素</p>
-<p>​        我们来看看如何移除第一个元素。current变量是对列表中第一个元素的引用，也就是我 们想移除的元素。需要做的就是改变head的引用，将其从current改为下一个元素 （current.next——行{1}）。但我们还需要更新current.next指向上一个元素的指针（因为 第一个元素的prev指针是null）。因此，把head.prev的引用改为null（行{3}——因为head 也指向列表中新的第一个元素，或者也可以用current.next.prev）。由于还需要控制tail 的引用，我们可以检查要移除的元素是否是第一个元素，如果是，只需要把tail也设为null（行{2}）。 </p>
-<p><img src="/images/js6-6.png" alt=""></p>
-<pre><code>下一种场景是从最后一个位置移除元素。既然已经有了对最后一个元素的引用（tail），我 们就不需要为找到它而迭代列表。这样我们也就可以把tail的引用赋给current变量（行{4}）。 接下来，需要把tail的引用更新为列表中倒数第二个元素（current.prev，或者tail.prev 也可以）。既然tail指向了倒数第二个元素，我们就只需要把next指针更新为null（tail.next = null）。
-</code></pre><p>下图演示了这一行为： </p>
-<p><img src="/images/js6-7.png" alt=""></p>
-<p>​        第三种也是最后一种场景：从列表中间移除一个元素。首先需要迭代列表，直到到达要找的 位置（行{5}）。current变量所引用的就是要移除的元素。那么要移除它，我们可以通过更新 previous.next和current.next.prev的引用，在列表中跳过它。因此，previous.next将 指向current.next，而current.next.prev将指向previous，</p>
-<p>如下图所示</p>
-<p><img src="/images/js6-8.png" alt=""></p>
-<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-8.png" alt=""></p>
 ]]></content>
       <categories>
         <category>学习JavaScript数据结构与算法</category>

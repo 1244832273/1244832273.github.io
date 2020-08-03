@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"1244832273.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="学习JavaScript数据结构与算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="双向链表">
+<meta property="og:url" content="https://1244832273.github.io/2020/07/27/js6/index.html">
+<meta property="og:site_name" content="越努力越幸运">
+<meta property="og:description" content="学习JavaScript数据结构与算法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://1244832273.github.io/images/js6-1.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js6-1.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js6-2.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js6-2.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js6-3.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js6-3.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js6-4.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js6-4.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js6-6.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js6-7.png">
+<meta property="og:image" content="https://1244832273.github.io/images/js6-8.png">
+<meta property="og:image" content="e:/1244832273.github.io/themes/next/source/images/js6-8.png">
+<meta property="article:published_time" content="2020-07-27T05:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-03T02:24:04.599Z">
+<meta property="article:author" content="鲁田文">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="数据结构与算法">
+<meta property="article:tag" content="学习JavaScript数据结构与算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://1244832273.github.io/images/js6-1.png">
+
+<link rel="canonical" href="https://1244832273.github.io/2020/07/27/js6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>双向链表 | 越努力越幸运</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">越努力越幸运</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://1244832273.github.io/2020/07/27/js6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="鲁田文">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越努力越幸运">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          双向链表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-27 13:00:00" itemprop="dateCreated datePublished" datetime="2020-07-27T13:00:00+08:00">2020-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-03 10:24:04" itemprop="dateModified" datetime="2020-08-03T10:24:04+08:00">2020-08-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">学习JavaScript数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">学习JavaScript数据结构与算法</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><p>​        链表有多种不同的类型，这一节介绍双向链表。双向链表和普通链表的区别在于，在链表中， 一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素， 另一个链向前一个元素，如下图所示： </p>
+<p><img src="/images/js6-1.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-1.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DoublyLinkedList</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> Node = <span class="function"><span class="keyword">function</span>(<span class="params">element</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">this</span>.element = element;</span><br><span class="line">        <span class="keyword">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.prev = <span class="literal">null</span>; <span class="comment">//新增的</span></span><br><span class="line">    &#125;; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> length = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> head = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">var</span> tail = <span class="literal">null</span>; <span class="comment">//新增的 </span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">//这里是方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        在代码中可以看到，LinkedList类和DoublyLinkedList类之间的区别标为新增的。在 Node类里有prev属性（一个新指针），在DoublyLinkedList类里也有用来保存对列表最后一 项的引用的tail属性</p>
+<p>​        双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节 点的下一个或前一个元素。在单向链表中，如果迭代列表时错过了要找的元素，就需要回到列表 起点，重新开始迭代。这是双向链表的一个优点</p>
+<h5 id="在任意位置插入一个新元素"><a href="#在任意位置插入一个新元素" class="headerlink" title="在任意位置插入一个新元素"></a>在任意位置插入一个新元素</h5><p>​        向双向链表中插入一个新项跟（单向）链表非常类似。区别在于，链表只要控制一个next 指针，而双向链表则要同时控制next和prev（previous，前一个）这两个指针。 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">position, element</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//检查越界值</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt;= <span class="number">0</span> &amp;&amp; position &lt;= length)&#123; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> node = <span class="keyword">new</span> Node(element),</span><br><span class="line">            current = head,</span><br><span class="line">            previous,</span><br><span class="line">            index = <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (position === <span class="number">0</span>)&#123; <span class="comment">//在第一个位置添加 </span></span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (!head)&#123; <span class="comment">//新增的 &#123;1&#125;</span></span><br><span class="line">                head = node;</span><br><span class="line">                tail = node;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                node.next = current;</span><br><span class="line">                current.prev = node; <span class="comment">//新增的 &#123;2&#125;</span></span><br><span class="line">                head = node;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span>  <span class="keyword">if</span> (position === length) &#123; <span class="comment">//最后一项 //新增的 </span></span><br><span class="line"> </span><br><span class="line">            current = tail; <span class="comment">// &#123;3&#125;</span></span><br><span class="line">            current.next = node;</span><br><span class="line">            node.prev = current; </span><br><span class="line">            tail = node; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (index++ &lt; position)&#123; <span class="comment">//&#123;4&#125;</span></span><br><span class="line">                previous = current;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125;</span><br><span class="line">            node.next = current; <span class="comment">//&#123;5&#125;</span></span><br><span class="line">            previous.next = node; </span><br><span class="line"> </span><br><span class="line">            current.prev = node; <span class="comment">//新增的</span></span><br><span class="line">            node.prev = previous; <span class="comment">//新增的</span></span><br><span class="line">        &#125; </span><br><span class="line"> </span><br><span class="line">        length++; <span class="comment">//更新列表的长度 </span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>; </span><br><span class="line"> </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>​        我们来分析第一种场景：在列表的第一个位置（列表的起点）插入一个新元素。如果列表为 空（行{1}），只需要把head和tail都指向这个新节点。如果不为空，current变量将是对列表 中第一个元素的引用。就像我们在链表中所做的，把node.next设为current，而head将指向 node（它将成为列表中的第一个元素）。不同之处在于，我们还需要为指向上一个元素的指针设 一个值。current.prev指针将由指向null变为指向新元素（node——行{2}）。node.prev指 针已经是null，因此不需要再更新任何东西</p>
+<p>下图演示了这个过程： </p>
+<p><img src="/images/js6-2.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-2.png" alt=""></p>
+<p>​        现在来分析一下，假如我们要在列表最后添加一个新元素。这是一个特殊情况，因为我们还 控制着指向最后一个元素的指针（tail）。current变量将引用最后一个元素（行{3}）。然后开 始建立第一个链接：node.prev将引用current。current.next指针（指向null）将指向node （由于构造函数，node.next已经指向了null）。然后只剩一件事了，就是更新tail，它将由指 向current变为指向node。</p>
+<p>下图展示了这些行为： </p>
+<p><img src="/images/js6-3.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-3.png" alt=""></p>
+<p>然后还有第三种场景：在列表中间插入一个新元素。就像我们在之前的方法中所做的，迭代 列表，直到到达要找的位置（行{4}）。我们将在current和previous元素之间插入新元素。首 先，node.next将指向current（行{5}），而previous.next将指向node，这样就不会丢失节 点之间的链接。然后需要处理所有的链接：current.prev将指向node，而node.prev将指向 previous。</p>
+<p>下图展示了这一过程： </p>
+<p><img src="/images/js6-4.png" alt=""></p>
+<p> <img src="E:\1244832273.github.io\themes\next\source\images\js6-4.png" alt=""></p>
+<p><code>我们可以对insert和remove这两个方法的实现做一些改进。在结果为否的 情况下，我们可以把元素插入到列表的尾部。性能也可以有所改进，比如，如果 position大于length/2，就最好从尾部开始迭代，而不是从头开始（这样就 能迭代更少列表中的元素）。</code> </p>
+<h5 id="从任意位置移除元素"><a href="#从任意位置移除元素" class="headerlink" title="从任意位置移除元素"></a>从任意位置移除元素</h5><p>​        从双向链表中移除元素跟链表非常类似。唯一的区别就是还需要设置前一个位置的指针。我 们来看一下它的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.removeAt = <span class="function"><span class="keyword">function</span>(<span class="params">position</span>)</span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//检查越界值</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt; <span class="number">-1</span> &amp;&amp; position &lt; length)&#123;</span><br><span class="line">    	<span class="keyword">var</span> current = head, </span><br><span class="line">    	 previous,</span><br><span class="line">         index = <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">        <span class="comment">//移除第一项</span></span><br><span class="line">        <span class="keyword">if</span> (position === <span class="number">0</span>)&#123; </span><br><span class="line"> </span><br><span class="line">            head = current.next; <span class="comment">// &#123;1&#125; </span></span><br><span class="line"> </span><br><span class="line">            <span class="comment">//如果只有一项，更新tail //新增的</span></span><br><span class="line">            <span class="keyword">if</span> (length === <span class="number">1</span>)&#123; <span class="comment">// &#123;2&#125;</span></span><br><span class="line">            	tail = <span class="literal">null</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           	 head.prev = <span class="literal">null</span>; <span class="comment">// &#123;3&#125;</span></span><br><span class="line">            &#125; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position === length<span class="number">-1</span>)&#123; <span class="comment">//最后一项 //新增的 </span></span><br><span class="line"> </span><br><span class="line">            current = tail; <span class="comment">// &#123;4&#125;</span></span><br><span class="line">            tail = current.prev;</span><br><span class="line">            tail.next = <span class="literal">null</span>; </span><br><span class="line"> </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line"> </span><br><span class="line">            <span class="keyword">while</span> (index++ &lt; position)&#123; <span class="comment">// &#123;5&#125; </span></span><br><span class="line"> </span><br><span class="line">                previous = current;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125; </span><br><span class="line"> </span><br><span class="line">            <span class="comment">//将previous与current的下一项链接起来——跳过current</span></span><br><span class="line">            previous.next = current.next; <span class="comment">// &#123;6&#125;</span></span><br><span class="line">            current.next.prev = previous; <span class="comment">//新增的</span></span><br><span class="line">        &#125; </span><br><span class="line"> </span><br><span class="line">        length--; </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> current.element; </span><br><span class="line"> </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>​        我们需要处理三种场景：从头部、从中间和从尾部移除一个元素</p>
+<p>​        我们来看看如何移除第一个元素。current变量是对列表中第一个元素的引用，也就是我 们想移除的元素。需要做的就是改变head的引用，将其从current改为下一个元素 （current.next——行{1}）。但我们还需要更新current.next指向上一个元素的指针（因为 第一个元素的prev指针是null）。因此，把head.prev的引用改为null（行{3}——因为head 也指向列表中新的第一个元素，或者也可以用current.next.prev）。由于还需要控制tail 的引用，我们可以检查要移除的元素是否是第一个元素，如果是，只需要把tail也设为null（行{2}）。 </p>
+<p><img src="/images/js6-6.png" alt=""></p>
+<pre><code>下一种场景是从最后一个位置移除元素。既然已经有了对最后一个元素的引用（tail），我 们就不需要为找到它而迭代列表。这样我们也就可以把tail的引用赋给current变量（行{4}）。 接下来，需要把tail的引用更新为列表中倒数第二个元素（current.prev，或者tail.prev 也可以）。既然tail指向了倒数第二个元素，我们就只需要把next指针更新为null（tail.next = null）。
+</code></pre><p>下图演示了这一行为： </p>
+<p><img src="/images/js6-7.png" alt=""></p>
+<p>​        第三种也是最后一种场景：从列表中间移除一个元素。首先需要迭代列表，直到到达要找的 位置（行{5}）。current变量所引用的就是要移除的元素。那么要移除它，我们可以通过更新 previous.next和current.next.prev的引用，在列表中跳过它。因此，previous.next将 指向current.next，而current.next.prev将指向previous，</p>
+<p>如下图所示</p>
+<p><img src="/images/js6-8.png" alt=""></p>
+<p><img src="E:\1244832273.github.io\themes\next\source\images\js6-8.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 学习JavaScript数据结构与算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/27/js5/" rel="prev" title="链表">
+      <i class="fa fa-chevron-left"></i> 链表
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#双向链表"><span class="nav-number">1.</span> <span class="nav-text">双向链表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在任意位置插入一个新元素"><span class="nav-number">1.1.</span> <span class="nav-text">在任意位置插入一个新元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从任意位置移除元素"><span class="nav-number">1.2.</span> <span class="nav-text">从任意位置移除元素</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">鲁田文</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鲁田文</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
